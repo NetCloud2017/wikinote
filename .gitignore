@@ -1,0 +1,68 @@
+# Obsidian local state and caches
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+.obsidian/workspaces.json
+.obsidian/cache/
+.obsidian/plugins/*/cache/
+.obsidian/plugins/*/*.log
+.obsidian/plugins/*/data.json
+
+# Obsidian trash
+.trash/
+
+# OS metadata
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100/
+.Trashes/
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
+# Editor state and temporary files
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+.idea/
+*.iml
+.history/
+*.tmp
+*.temp
+*.bak
+*.orig
+*.rej
+*.swp
+*.swo
+*~
+.~lock.*#
+
+# Python caches and local environments
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+
+# Local secrets
+.env
+.env.*
+!.env.example
+
+# Agent-local runtime state; keep reusable skill sources
+.agents/**/.cache/
+.agents/**/.env
+.agents/**/data.json
+.agents/**/*.log
+.agents/**/__pycache__/
+.agents/**/.pytest_cache/
+.agents/**/.mypy_cache/
+.agents/**/.ruff_cache/
+
+# Node dependencies
+node_modules/
