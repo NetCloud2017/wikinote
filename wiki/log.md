@@ -75,4 +75,8 @@
 ## [2026-09-16] ingest | no material: raw/其他/Window 系统相关/windows终端.md
 - Disposition: No material
 
+## [2026-10-14] ingest | Next.js 笔记
+- Disposition: Update
+- Raw: raw/React/nextjs/layout 和template总结.md
+
 ## [2026-09-16] lint | 1 issue found, 1 auto-fixed

@@ -48,7 +48,7 @@ React、Next.js 和数据流管理。
 | Article | Summary | Updated |
 |---------|---------|---------|
 | [React 基础与运行时](react/fundamentals.md) | 项目运行、useEffect、虚拟 DOM 和副作用 | 2026-09-16 |
-| [Next.js 笔记](react/nextjs.md) | 路由、运行环境、静态导出和国际化 | 2026-09-16 |
+| [Next.js 笔记](react/nextjs.md) | 路由、运行环境、静态导出、国际化，以及 Layout 与 Template 的区别和避坑 | 2026-10-14 |
 | [Redux 与 MobX 数据流管理对比](react/redux-vs-mobx-data-flow.md) | 从 props / Context 的局限出发，对比 Redux 与 MobX | 2026-09-16 |
 
 ## nodejs
