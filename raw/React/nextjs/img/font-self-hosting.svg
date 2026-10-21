@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="600" viewBox="0 0 1000 600" font-family="'Microsoft YaHei', 'PingFang SC', Arial, sans-serif">
+  <rect width="1000" height="600" fill="#ffffff"/>
+  <text x="20" y="38" font-size="24" font-weight="bold" fill="#1f2329">next/font 字体自托管与加载（Next.js 16 / App Router）</text>
+
+  <!-- 图例 -->
+  <rect x="20" y="56" width="14" height="14" fill="#e8f1ff" stroke="#3471c9"/>
+  <text x="40" y="68" font-size="13" fill="#555">构建时（build）</text>
+  <rect x="150" y="56" width="14" height="14" fill="#e6f7ed" stroke="#2e9e5b"/>
+  <text x="170" y="68" font-size="13" fill="#555">运行时（browser）</text>
+  <rect x="330" y="56" width="14" height="14" fill="#fff7e6" stroke="#d4a017"/>
+  <text x="350" y="68" font-size="13" fill="#555">关键收益</text>
+
+  <!-- ============ 构建时 ============ -->
+  <rect x="40" y="88" width="440" height="160" rx="10" fill="#e8f1ff" stroke="#3471c9"/>
+  <text x="260" y="114" text-anchor="middle" font-size="15" fill="#1d3f73" font-weight="bold">构建时（Build）</text>
+  <text x="260" y="142" text-anchor="middle" font-size="12" fill="#33538a">next/font/google 的 Inter(...)：</text>
+  <text x="260" y="164" text-anchor="middle" font-size="12" fill="#33538a">CSS + 字体文件在 build 时下载到本地静态资源</text>
+  <text x="260" y="184" text-anchor="middle" font-size="12" fill="#33538a">next/font/local 的 localFont({src})：直接用本地文件</text>
+  <text x="260" y="204" text-anchor="middle" font-size="12" fill="#33538a">生成 @font-face，注入 preload &lt;link&gt;</text>
+  <text x="260" y="226" text-anchor="middle" font-size="12" fill="#8a4b1a">（子集 subsets 只预载所需子集，控制体积）</text>
+
+  <!-- 箭头 -->
+  <line x1="480" y1="168" x2="525" y2="168" stroke="#2e9e5b" stroke-width="3"/>
+  <polygon points="525,161 540,168 525,175" fill="#2e9e5b"/>
+
+  <!-- ============ 运行时 ============ -->
+  <rect x="545" y="88" width="415" height="160" rx="10" fill="#e6f7ed" stroke="#2e9e5b"/>
+  <text x="752" y="114" text-anchor="middle" font-size="15" fill="#0e5a2e" font-weight="bold">运行时（Browser）</text>
+  <text x="752" y="142" text-anchor="middle" font-size="12" fill="#2f6b45">浏览器从自己的域名加载字体</text>
+  <text x="752" y="164" text-anchor="middle" font-size="12" fill="#2f6b45">不发请求给 Google（隐私 + 性能）</text>
+  <text x="752" y="184" text-anchor="middle" font-size="12" fill="#2f6b45">display:'swap' 默认 → FOIT 兜底避免闪白</text>
+  <text x="752" y="204" text-anchor="middle" font-size="12" fill="#2f6b45">adjustFontFallback → 减小 CLS（布局偏移）</text>
+
+  <!-- ============ 关键收益 ============ -->
+  <rect x="40" y="270" width="920" height="84" rx="10" fill="#fff7e6" stroke="#d4a017"/>
+  <text x="60" y="298" font-size="15" fill="#6b4f00" font-weight="bold">关键收益</text>
+  <text x="60" y="322" font-size="13" fill="#7a5f14">内置自托管（built-in self-hosting）→ 无外部网络请求、无布局偏移（no layout shift）、Google Fonts 也走本地。</text>
+  <text x="60" y="344" font-size="13" fill="#7a5f14">同一字体只加载一次实例（fonts.ts 单点定义），按使用位置决定在 page / layout / root layout 预载。</text>
+
+  <!-- ============ 三种应用方式 ============ -->
+  <text x="40" y="390" font-size="16" font-weight="bold" fill="#1f2329">三种应用方式</text>
+
+  <rect x="40" y="404" width="292" height="150" rx="10" fill="#fafafa" stroke="#3471c9"/>
+  <text x="186" y="428" text-anchor="middle" font-size="14" fill="#1d3f73" font-weight="bold">① className</text>
+  <text x="60" y="452" font-size="12" fill="#444">&lt;html className={inter.className}&gt;</text>
+  <text x="60" y="472" font-size="12" fill="#444">最常用；直接套到根元素</text>
+  <text x="60" y="492" font-size="12" fill="#444">整站生效</text>
+  <text x="60" y="512" font-size="12" fill="#888">只读的 CSS class</text>
+  <text x="60" y="532" font-size="12" fill="#888">字体名 + 自动 fallback 都内置</text>
+
+  <rect x="354" y="404" width="292" height="150" rx="10" fill="#fafafa" stroke="#2e9e5b"/>
+  <text x="500" y="428" text-anchor="middle" font-size="14" fill="#0e5a2e" font-weight="bold">② style</text>
+  <text x="374" y="452" font-size="12" fill="#444">&lt;p style={inter.style}&gt;</text>
+  <text x="374" y="472" font-size="12" fill="#444">style.fontFamily 含字体族 + fallback</text>
+  <text x="374" y="492" font-size="12" fill="#444">适合局部、内联使用</text>
+  <text x="374" y="512" font-size="12" fill="#888">只读的 style 对象</text>
+  <text x="374" y="532" font-size="12" fill="#888">配 CSS-in-JS / 个别元素用</text>
+
+  <rect x="668" y="404" width="292" height="150" rx="10" fill="#fafafa" stroke="#d4a017"/>
+  <text x="814" y="428" text-anchor="middle" font-size="14" fill="#6b4f00" font-weight="bold">③ CSS 变量</text>
+  <text x="688" y="452" font-size="12" fill="#444">variable: '--font-inter'</text>
+  <text x="688" y="472" font-size="12" fill="#444">className={inter.variable}</text>
+  <text x="688" y="492" font-size="12" fill="#444">外部 CSS 用 var(--font-inter)</text>
+  <text x="688" y="512" font-size="12" fill="#888">Tailwind 集成首选（@theme inline）</text>
+  <text x="688" y="532" font-size="12" fill="#888">多字体按需组合</text>
+</svg>

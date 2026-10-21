@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="640" viewBox="0 0 1000 640" font-family="'Microsoft YaHei', 'PingFang SC', Arial, sans-serif">
+  <defs>
+    <marker id="arw" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#3471c9"/></marker>
+    <marker id="arwG" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#2e9e5b"/></marker>
+    <marker id="arwR" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#d15b4a"/></marker>
+  </defs>
+
+  <rect width="1000" height="640" fill="#ffffff"/>
+  <text x="20" y="40" font-size="24" font-weight="bold" fill="#1f2329">Server Action 整体流程（Next.js 16 · 单次往返）</text>
+
+  <!-- ===== 客户端泳道 ===== -->
+  <rect x="40" y="60" width="920" height="120" rx="10" fill="#f5f7fa" stroke="#c8d0da"/>
+  <text x="56" y="82" font-size="13" font-weight="bold" fill="#555">客户端（Client Component）</text>
+
+  <rect x="90" y="102" width="280" height="58" rx="8" fill="#ffffff" stroke="#c8d0da"/>
+  <text x="230" y="124" text-anchor="middle" font-size="13" font-weight="bold" fill="#333">&lt;form action={formAction}&gt;</text>
+  <text x="230" y="144" text-anchor="middle" font-size="12" fill="#666">action 自动接收 FormData</text>
+
+  <rect x="395" y="102" width="300" height="58" rx="8" fill="#ffffff" stroke="#c8d0da"/>
+  <text x="545" y="124" text-anchor="middle" font-size="13" font-weight="bold" fill="#333">useActionState(fn, initialState)</text>
+  <text x="545" y="144" text-anchor="middle" font-size="12" fill="#666">返回 [state, formAction, pending]</text>
+
+  <rect x="720" y="102" width="220" height="58" rx="8" fill="#ffffff" stroke="#c8d0da"/>
+  <text x="830" y="124" text-anchor="middle" font-size="13" font-weight="bold" fill="#333">&lt;button disabled={pending}&gt;</text>
+  <text x="830" y="144" text-anchor="middle" font-size="12" fill="#666">pending 期间禁用 / 转圈</text>
+
+  <!-- POST 上行 -->
+  <line x1="545" y1="180" x2="545" y2="270" stroke="#3471c9" stroke-width="2" marker-end="url(#arw)"/>
+  <text x="556" y="230" font-size="12" fill="#3471c9">POST · 一次 Server Action 调用</text>
+
+  <!-- ===== 服务端泳道 ===== -->
+  <rect x="40" y="272" width="920" height="356" rx="10" fill="#f0f6ff" stroke="#a9c3ec"/>
+  <text x="56" y="294" font-size="13" font-weight="bold" fill="#2b5797">服务端 · Server Action（"use server"）</text>
+
+  <!-- ① 提取 -->
+  <rect x="410" y="312" width="300" height="46" rx="8" fill="#ffffff" stroke="#94a3b8"/>
+  <text x="560" y="331" text-anchor="middle" font-size="13" font-weight="bold" fill="#333">① 提取 FormData</text>
+  <text x="560" y="348" text-anchor="middle" font-size="12" fill="#666">formData.get() / Object.fromEntries()</text>
+
+  <!-- ② zod -->
+  <rect x="410" y="378" width="300" height="50" rx="8" fill="#eef7ff" stroke="#3471c9"/>
+  <text x="560" y="399" text-anchor="middle" font-size="13" font-weight="bold" fill="#1f4e8c">② zod safeParse 校验</text>
+  <text x="560" y="417" text-anchor="middle" font-size="12" fill="#35639e">schema.safeParse(raw)</text>
+
+  <!-- ③ 鉴权 -->
+  <rect x="410" y="448" width="300" height="46" rx="8" fill="#f6f0ff" stroke="#7b4fc0"/>
+  <text x="560" y="467" text-anchor="middle" font-size="13" font-weight="bold" fill="#4a2b7d">③ 鉴权 + 归属校验</text>
+  <text x="560" y="484" text-anchor="middle" font-size="12" fill="#6a4aa5">auth() · 校验 ownerId</text>
+
+  <!-- ④ 变更 + 失效 -->
+  <rect x="410" y="514" width="300" height="58" rx="8" fill="#eefcf2" stroke="#2e9e5b"/>
+  <text x="560" y="533" text-anchor="middle" font-size="13" font-weight="bold" fill="#1f6b3a">④ 变更数据 + 缓存失效</text>
+  <text x="560" y="550" text-anchor="middle" font-size="12" fill="#2e7d4f">DB 写入 · revalidatePath / updateTag</text>
+  <text x="560" y="565" text-anchor="middle" font-size="12" fill="#2e7d4f">redirect / refresh / cookies</text>
+
+  <!-- 顺序箭头 -->
+  <line x1="560" y1="358" x2="560" y2="376" stroke="#94a3b8" stroke-width="2" marker-end="url(#arw)"/>
+  <line x1="560" y1="428" x2="560" y2="446" stroke="#3471c9" stroke-width="2" marker-end="url(#arw)"/>
+  <line x1="560" y1="494" x2="560" y2="512" stroke="#7b4fc0" stroke-width="2" marker-end="url(#arw)"/>
+
+  <!-- 校验失败分支 -->
+  <line x1="710" y1="403" x2="762" y2="403" stroke="#d15b4a" stroke-width="2" marker-end="url(#arwR)"/>
+  <rect x="764" y="378" width="186" height="50" rx="8" fill="#fff1f0" stroke="#d15b4a"/>
+  <text x="857" y="399" text-anchor="middle" font-size="13" font-weight="bold" fill="#a83a2c">返回 { errors }</text>
+  <text x="857" y="417" text-anchor="middle" font-size="12" fill="#c05244">客户端用 state 渲染错误</text>
+
+  <line x1="857" y1="378" x2="857" y2="182" stroke="#d15b4a" stroke-width="2" stroke-dasharray="5,4" marker-end="url(#arwR)"/>
+  <text x="810" y="368" text-anchor="end" font-size="11" fill="#a83a2c">不落库</text>
+
+  <!-- 单次响应上行 -->
+  <line x1="130" y1="600" x2="130" y2="192" stroke="#2e9e5b" stroke-width="2" stroke-dasharray="6,4" marker-end="url(#arwG)"/>
+  <text x="148" y="612" font-size="12" fill="#2e7d4f">单次响应（同一 HTTP 请求）：返回值 + 重渲染的 RSC Payload</text>
+</svg>

@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="620" viewBox="0 0 1000 620" font-family="'Microsoft YaHei', 'PingFang SC', Arial, sans-serif">
+  <rect width="1000" height="620" fill="#ffffff"/>
+  <text x="20" y="38" font-size="24" font-weight="bold" fill="#1f2329">next/script 加载策略与时机（Next.js 16 / App Router）</text>
+
+  <!-- 图例 -->
+  <rect x="20" y="56" width="14" height="14" fill="#e8f1ff" stroke="#3471c9"/>
+  <text x="40" y="68" font-size="13" fill="#555">beforeInteractive</text>
+  <rect x="180" y="56" width="14" height="14" fill="#e6f7ed" stroke="#2e9e5b"/>
+  <text x="200" y="68" font-size="13" fill="#555">afterInteractive（默认）</text>
+  <rect x="360" y="56" width="14" height="14" fill="#fff7e6" stroke="#d4a017"/>
+  <text x="380" y="68" font-size="13" fill="#555">lazyOnload</text>
+  <rect x="520" y="56" width="14" height="14" fill="#f0f0f0" stroke="#888"/>
+  <text x="540" y="68" font-size="13" fill="#555">worker（实验）</text>
+
+  <!-- 页面加载时间线 -->
+  <rect x="20" y="86" width="960" height="84" rx="10" fill="#fafbfc" stroke="#d0d7e0"/>
+  <text x="40" y="110" font-size="13" font-weight="bold" fill="#1f2329">页面加载时间线（决定各策略的注入时机）</text>
+  <line x1="60" y1="136" x2="940" y2="136" stroke="#b8c2cc" stroke-width="3"/>
+  <polygon points="940,129 956,136 940,143" fill="#b8c2cc"/>
+  <circle cx="110" cy="136" r="7" fill="#3471c9"/>
+  <text x="110" y="160" text-anchor="middle" font-size="11" fill="#3471c9">服务端 HTML 解析</text>
+  <circle cx="390" cy="136" r="7" fill="#2e9e5b"/>
+  <text x="390" y="160" text-anchor="middle" font-size="11" fill="#2e9e5b">hydration（水合）</text>
+  <circle cx="640" cy="136" r="7" fill="#d4a017"/>
+  <text x="640" y="160" text-anchor="middle" font-size="11" fill="#b8860b">资源加载完成</text>
+  <circle cx="890" cy="136" r="7" fill="#888"/>
+  <text x="890" y="160" text-anchor="middle" font-size="11" fill="#666">浏览器空闲</text>
+
+  <!-- 策略卡片 第一行 -->
+  <rect x="20" y="188" width="465" height="132" rx="10" fill="#e8f1ff" stroke="#3471c9"/>
+  <text x="252" y="212" text-anchor="middle" font-size="14" fill="#1d3f73" font-weight="bold">① beforeInteractive</text>
+  <text x="40" y="236" font-size="12" fill="#33538a">时机：Next.js 代码与 hydration 之前</text>
+  <text x="40" y="258" font-size="12" fill="#33538a">注入：服务端注入 &lt;head&gt;，不阻塞水合</text>
+  <text x="40" y="280" font-size="12" fill="#33538a">位置：必须 root layout（整站生效）</text>
+  <text x="40" y="302" font-size="12" fill="#8a4b1a">典型：bot 检测、cookie 同意管理器</text>
+
+  <rect x="505" y="188" width="465" height="132" rx="10" fill="#e6f7ed" stroke="#2e9e5b"/>
+  <text x="737" y="212" text-anchor="middle" font-size="14" fill="#0e5a2e" font-weight="bold">② afterInteractive（默认）</text>
+  <text x="525" y="236" font-size="12" fill="#2f6b45">时机：页面 hydration 之后</text>
+  <text x="525" y="258" font-size="12" fill="#2f6b45">注入：客户端注入</text>
+  <text x="525" y="280" font-size="12" fill="#2f6b45">位置：任意 page / layout</text>
+  <text x="525" y="302" font-size="12" fill="#8a4b1a">典型：tag manager、analytics</text>
+
+  <!-- 策略卡片 第二行 -->
+  <rect x="20" y="336" width="465" height="132" rx="10" fill="#fff7e6" stroke="#d4a017"/>
+  <text x="252" y="360" text-anchor="middle" font-size="14" fill="#6b4f00" font-weight="bold">③ lazyOnload</text>
+  <text x="40" y="384" font-size="12" fill="#7a5f14">时机：浏览器空闲、全部资源加载完</text>
+  <text x="40" y="406" font-size="12" fill="#7a5f14">注入：客户端注入</text>
+  <text x="40" y="428" font-size="12" fill="#7a5f14">位置：任意 page / layout</text>
+  <text x="40" y="450" font-size="12" fill="#8a4b1a">典型：聊天插件、社媒 widget</text>
+
+  <rect x="505" y="336" width="465" height="132" rx="10" fill="#fafafa" stroke="#888"/>
+  <text x="737" y="360" text-anchor="middle" font-size="14" fill="#444" font-weight="bold">④ worker（实验性）</text>
+  <text x="525" y="384" font-size="12" fill="#555">时机：web worker 中（Partytown）</text>
+  <text x="525" y="406" font-size="12" fill="#555">限制：仅 pages 目录（App Router 不支持）</text>
+  <text x="525" y="428" font-size="12" fill="#555">配置：next.config → experimental.nextScriptWorkers</text>
+  <text x="525" y="450" font-size="12" fill="#8a4b1a">注意：高级用例，不保证支持全部三方脚本</text>
+
+  <!-- 关键要点 -->
+  <rect x="20" y="488" width="960" height="110" rx="10" fill="#fff7e6" stroke="#d4a017"/>
+  <text x="40" y="514" font-size="14" fill="#6b4f00" font-weight="bold">关键要点</text>
+  <text x="40" y="538" font-size="13" fill="#7a5f14">同一脚本只加载一次（跨路由导航不重复）｜回调 onLoad / onReady / onError 仅 Client Component，onLoad / onError 不能配 beforeInteractive</text>
+  <text x="40" y="562" font-size="13" fill="#7a5f14">inline 脚本必须给 id（用于去重与优化跟踪）｜附加属性（nonce、data-* 等）自动透传到最终 &lt;script&gt;</text>
+  <text x="40" y="586" font-size="13" fill="#7a5f14">整站脚本放 root layout、按需放具体页以最小化性能影响</text>
+</svg>

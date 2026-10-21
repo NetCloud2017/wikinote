@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="840" viewBox="0 0 1000 840" font-family="'Microsoft YaHei', 'PingFang SC', Arial, sans-serif">
+  <rect width="1000" height="840" fill="#ffffff"/>
+  <text x="20" y="40" font-size="24" font-weight="bold" fill="#1f2329">CSR / SSR / SSG / RSC 渲染时序对比（Next.js 16 / App Router）</text>
+
+  <!-- 图例 -->
+  <rect x="20" y="58" width="16" height="16" fill="#fff7e6" stroke="#d4a017"/>
+  <text x="44" y="71" font-size="13" fill="#555">CSR</text>
+  <rect x="150" y="58" width="16" height="16" fill="#e6f7ed" stroke="#2e9e5b"/>
+  <text x="174" y="71" font-size="13" fill="#555">SSR</text>
+  <rect x="280" y="58" width="16" height="16" fill="#e8f1ff" stroke="#3471c9"/>
+  <text x="304" y="71" font-size="13" fill="#555">SSG</text>
+  <rect x="420" y="58" width="16" height="16" fill="#f3eaff" stroke="#7b4fc0"/>
+  <text x="444" y="71" font-size="13" fill="#555">RSC</text>
+
+  <!-- 列头 -->
+  <text x="20" y="108" font-size="13" fill="#888">渲染位置 / 时机</text>
+  <line x1="160" y1="95" x2="160" y2="820" stroke="#ddd" stroke-width="1"/>
+
+  <!-- ============ CSR 行 ============ -->
+  <text x="22" y="150" font-size="16" font-weight="bold" fill="#b8860b">CSR</text>
+  <text x="22" y="170" font-size="12" fill="#888">客户端渲染</text>
+  <g>
+    <rect x="170" y="128" width="180" height="52" rx="8" fill="#fff7e6" stroke="#d4a017"/>
+    <text x="260" y="150" text-anchor="middle" font-size="13" fill="#6b4f00">服务端只发空壳 HTML</text>
+    <text x="260" y="168" text-anchor="middle" font-size="12" fill="#8a6d1a">(无内容、引 JS)</text>
+  </g>
+  <line x1="350" y1="154" x2="378" y2="154" stroke="#d4a017" stroke-width="2" marker-end="url(#arwA)"/>
+  <g>
+    <rect x="382" y="128" width="180" height="52" rx="8" fill="#fff7e6" stroke="#d4a017"/>
+    <text x="472" y="150" text-anchor="middle" font-size="13" fill="#6b4f00">浏览器下载并执行 JS</text>
+    <text x="472" y="168" text-anchor="middle" font-size="12" fill="#8a6d1a">(React 在浏览器里渲染)</text>
+  </g>
+  <line x1="562" y1="154" x2="590" y2="154" stroke="#d4a017" stroke-width="2" marker-end="url(#arwA)"/>
+  <g>
+    <rect x="594" y="128" width="180" height="52" rx="8" fill="#fff7e6" stroke="#d4a017"/>
+    <text x="684" y="150" text-anchor="middle" font-size="13" fill="#6b4f00">构建 DOM</text>
+    <text x="684" y="168" text-anchor="middle" font-size="12" fill="#8a6d1a">(首次绘制在浏览器)</text>
+  </g>
+  <line x1="774" y1="154" x2="802" y2="154" stroke="#d4a017" stroke-width="2" marker-end="url(#arwA)"/>
+  <g>
+    <rect x="806" y="128" width="160" height="52" rx="8" fill="#fff3cc" stroke="#c9972b"/>
+    <text x="886" y="150" text-anchor="middle" font-size="13" fill="#6b4f00">首屏可见 / 可交互</text>
+    <text x="886" y="168" text-anchor="middle" font-size="12" fill="#8a6d1a">TTFB 快、白屏久</text>
+  </g>
+
+  <!-- ============ SSR 行 ============ -->
+  <text x="22" y="340" font-size="16" font-weight="bold" fill="#1f7a44">SSR</text>
+  <text x="22" y="360" font-size="12" fill="#888">服务端渲染</text>
+  <g>
+    <rect x="170" y="318" width="200" height="52" rx="8" fill="#e6f7ed" stroke="#2e9e5b"/>
+    <text x="270" y="340" text-anchor="middle" font-size="13" fill="#0e5a2e">浏览器发起请求</text>
+    <text x="270" y="358" text-anchor="middle" font-size="12" fill="#3b7a52">(每次请求都现算)</text>
+  </g>
+  <line x1="370" y1="344" x2="398" y2="344" stroke="#2e9e5b" stroke-width="2" marker-end="url(#arwB)"/>
+  <g>
+    <rect x="402" y="318" width="230" height="52" rx="8" fill="#e6f7ed" stroke="#2e9e5b"/>
+    <text x="517" y="340" text-anchor="middle" font-size="13" fill="#0e5a2e">服务端渲染出完整 HTML</text>
+    <text x="517" y="358" text-anchor="middle" font-size="12" fill="#3b7a52">(数据 + 内容一起给)</text>
+  </g>
+  <line x1="632" y1="344" x2="660" y2="344" stroke="#2e9e5b" stroke-width="2" marker-end="url(#arwB)"/>
+  <g>
+    <rect x="664" y="318" width="230" height="52" rx="8" fill="#d3efdd" stroke="#247a4a"/>
+    <text x="779" y="340" text-anchor="middle" font-size="13" fill="#0e5a2e">浏览器收到完整 HTML → hydrate</text>
+    <text x="779" y="358" text-anchor="middle" font-size="12" fill="#3b7a52">(SEO 好、首屏内容即得)</text>
+  </g>
+  <text x="170" y="392" font-size="12" fill="#666">Next.js 16：Server Component + 不设置缓存（动态渲染 / no-store / force-dynamic）</text>
+
+  <!-- ============ SSG 行 ============ -->
+  <text x="22" y="525" font-size="16" font-weight="bold" fill="#2b59a8">SSG</text>
+  <text x="22" y="545" font-size="12" fill="#888">静态生成</text>
+  <g>
+    <rect x="170" y="503" width="200" height="52" rx="8" fill="#e8f1ff" stroke="#3471c9"/>
+    <text x="270" y="525" text-anchor="middle" font-size="13" fill="#1d3f73">构建时生成静态 HTML</text>
+    <text x="270" y="543" text-anchor="middle" font-size="12" fill="#4a6aa8">(next build 一次生成)</text>
+  </g>
+  <line x1="370" y1="529" x2="398" y2="529" stroke="#3471c9" stroke-width="2" marker-end="url(#arwC)"/>
+  <g>
+    <rect x="402" y="503" width="230" height="52" rx="8" fill="#e8f1ff" stroke="#3471c9"/>
+    <text x="517" y="525" text-anchor="middle" font-size="13" fill="#1d3f73">部署到 CDN / 静态托管</text>
+    <text x="517" y="543" text-anchor="middle" font-size="12" fill="#4a6aa8">(无需服务端)</text>
+  </g>
+  <line x1="632" y1="529" x2="660" y2="529" stroke="#3471c9" stroke-width="2" marker-end="url(#arwC)"/>
+  <g>
+    <rect x="664" y="503" width="230" height="52" rx="8" fill="#dbe6fa" stroke="#2b59a8"/>
+    <text x="779" y="525" text-anchor="middle" font-size="13" fill="#1d3f73">浏览器直接拿完整 HTML</text>
+    <text x="779" y="543" text-anchor="middle" font-size="12" fill="#4a6aa8">(最快；可配 ISR 增量再生成)</text>
+  </g>
+  <text x="170" y="577" font-size="12" fill="#666">Next.js 16：generateStaticParams + 默认静态；PPR 实验配置改为 cacheComponents</text>
+
+  <!-- ============ RSC 行 ============ -->
+  <text x="22" y="712" font-size="16" font-weight="bold" fill="#5b3aa3">RSC</text>
+  <text x="22" y="732" font-size="12" fill="#888">React 服务端组件</text>
+  <g>
+    <rect x="170" y="690" width="185" height="52" rx="8" fill="#f3eaff" stroke="#7b4fc0"/>
+    <text x="262" y="712" text-anchor="middle" font-size="13" fill="#3c2370">请求到达服务端</text>
+    <text x="262" y="730" text-anchor="middle" font-size="12" fill="#6a4bb0">(App Router 默认 RSC)</text>
+  </g>
+  <line x1="355" y1="716" x2="383" y2="716" stroke="#7b4fc0" stroke-width="2" marker-end="url(#arwD)"/>
+  <g>
+    <rect x="387" y="690" width="200" height="52" rx="8" fill="#f3eaff" stroke="#7b4fc0"/>
+    <text x="487" y="712" text-anchor="middle" font-size="13" fill="#3c2370">服务端渲染组件树</text>
+    <text x="487" y="730" text-anchor="middle" font-size="12" fill="#6a4bb0">(server 组件不打包下发)</text>
+  </g>
+  <line x1="587" y1="716" x2="615" y2="716" stroke="#7b4fc0" stroke-width="2" marker-end="url(#arwD)"/>
+  <g>
+    <rect x="619" y="690" width="190" height="52" rx="8" fill="#f3eaff" stroke="#7b4fc0"/>
+    <text x="714" y="712" text-anchor="middle" font-size="13" fill="#3c2370">流式输出 HTML + Flight</text>
+    <text x="714" y="730" text-anchor="middle" font-size="12" fill="#6a4bb0">(RSC 序列化 payload)</text>
+  </g>
+  <line x1="809" y1="716" x2="837" y2="716" stroke="#7b4fc0" stroke-width="2" marker-end="url(#arwD)"/>
+  <g>
+    <rect x="841" y="690" width="130" height="52" rx="8" fill="#e3d8f7" stroke="#5b3aa3"/>
+    <text x="906" y="712" text-anchor="middle" font-size="13" fill="#3c2370">客户端 hydrate</text>
+    <text x="906" y="730" text-anchor="middle" font-size="12" fill="#6a4bb0">('use client' 部分)</text>
+  </g>
+  <text x="170" y="766" font-size="12" fill="#666">RSC 是 Next.js 16 的“底层渲染模型”，CSR / SSR / SSG 是具体页面策略；所有页面默认都是 RSC 树。</text>
+
+  <defs>
+    <marker id="arwA" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L9,3 L0,6 Z" fill="#d4a017"/></marker>
+    <marker id="arwB" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L9,3 L0,6 Z" fill="#2e9e5b"/></marker>
+    <marker id="arwC" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L9,3 L0,6 Z" fill="#3471c9"/></marker>
+    <marker id="arwD" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L9,3 L0,6 Z" fill="#7b4fc0"/></marker>
+  </defs>
+</svg>

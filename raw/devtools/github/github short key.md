@@ -181,3 +181,12 @@ Command+Shift+.(Mac) 或 Ctrl+Shift+.(Windows/Linux): 为报价插入 Markdown �
 Command+G(Mac) 或 Ctrl+G(Windows/Linux): 插入建议。 更多信息请参阅“[审查拉取请求中提议的更改](https://docs.github.com/cn/pull-requests/collaborating-with-pull-requests/reviewing-changes-in-pull-requests/reviewing-proposed-changes-in-a-pull-request)”。
 
 | R | 在您的回复中引用所选的文本。 更多信息请参阅“[基本撰写和格式语法](https://docs.github.com/cn/articles/basic-writing-and-formatting-syntax#quoting-text)”。 |
+
+### 常用技巧
+
+github 改成 gitdiagram 可以让源码库生成以来图。 
+如： `https://gitdiagram.com/react/react`
+
+github改成 gitingest 可以生成AI 一份AI 可以理解代码库的文件。 
+如： `https://gitingest.com/react/react`
+

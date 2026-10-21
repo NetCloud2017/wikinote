@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 720" font-family="-apple-system, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#64748b"/>
+    </marker>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f8fafc"/>
+      <stop offset="1" stop-color="#eef2f7"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1080" height="720" fill="url(#bg)"/>
+
+  <!-- Title -->
+  <text x="540" y="36" text-anchor="middle" font-size="20" font-weight="700" fill="#0f172a">Next.js 16 SEO 体系：搜索引擎工作流 × 文件约定</text>
+
+  <!-- Left column: search engine pipeline -->
+  <text x="200" y="78" text-anchor="middle" font-size="14" font-weight="600" fill="#475569">搜索引擎三步</text>
+
+  <rect x="80" y="100" width="240" height="70" rx="10" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="200" y="128" text-anchor="middle" font-size="15" font-weight="700" fill="#1e40af">① 抓取 Crawl</text>
+  <text x="200" y="150" text-anchor="middle" font-size="12" fill="#1e3a8a">蜘蛛访问 URL，下载 HTML</text>
+
+  <line x1="200" y1="170" x2="200" y2="195" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <rect x="80" y="200" width="240" height="70" rx="10" fill="#dcfce7" stroke="#22c55e" stroke-width="1.5"/>
+  <text x="200" y="228" text-anchor="middle" font-size="15" font-weight="700" fill="#166534">② 索引 Index</text>
+  <text x="200" y="250" text-anchor="middle" font-size="12" fill="#14532d">解析内容→倒排索引库</text>
+
+  <line x1="200" y1="270" x2="200" y2="295" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <rect x="80" y="300" width="240" height="70" rx="10" fill="#fef3c7" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="200" y="328" text-anchor="middle" font-size="15" font-weight="700" fill="#92400e">③ 排名 Rank</text>
+  <text x="200" y="350" text-anchor="middle" font-size="12" fill="#78350f">按相关性/质量排搜索结果</text>
+
+  <!-- What helps each step -->
+  <rect x="60" y="400" width="280" height="200" rx="10" fill="#fff7ed" stroke="#fb923c" stroke-width="1.2" stroke-dasharray="4,3"/>
+  <text x="200" y="424" text-anchor="middle" font-size="13" font-weight="700" fill="#9a3412">Next.js 怎么帮上忙</text>
+  <text x="76" y="450" font-size="12" fill="#7c2d12">• SSR/RSC/SSG → HTML 直出，蜘蛛拿到的就是渲染后内容</text>
+  <text x="76" y="474" font-size="12" fill="#7c2d12">• robots.ts → 告诉蜘蛛哪些路径能爬</text>
+  <text x="76" y="498" font-size="12" fill="#7c2d12">• sitemap.ts → 主动列出全部 URL</text>
+  <text x="76" y="522" font-size="12" fill="#7c2d12">• Metadata API → title/desc/OG 写进 &lt;head&gt;</text>
+  <text x="76" y="546" font-size="12" fill="#7c2d12">• JSON-LD → 给结构化数据，富摘要</text>
+  <text x="76" y="570" font-size="12" fill="#7c2d12">• Web Vitals → 性能信号影响排名</text>
+
+  <!-- Center divider -->
+  <line x1="400" y1="80" x2="400" y2="640" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="6,4"/>
+
+  <!-- Right column: Next.js file conventions -->
+  <text x="740" y="78" text-anchor="middle" font-size="14" font-weight="600" fill="#475569">Next.js 16 文件约定（app/ 目录）</text>
+
+  <!-- robots.ts -->
+  <rect x="470" y="100" width="540" height="60" rx="8" fill="#e0e7ff" stroke="#6366f1" stroke-width="1.5"/>
+  <text x="490" y="126" font-size="14" font-weight="700" fill="#3730a3">app/robots.ts</text>
+  <text x="490" y="148" font-size="12" fill="#312e81">→ 产出 /robots.txt：User-Agent / Allow / Disallow / Sitemap</text>
+
+  <!-- sitemap.ts -->
+  <rect x="470" y="175" width="540" height="60" rx="8" fill="#e0e7ff" stroke="#6366f1" stroke-width="1.5"/>
+  <text x="490" y="201" font-size="14" font-weight="700" fill="#3730a3">app/sitemap.ts</text>
+  <text x="490" y="223" font-size="12" fill="#312e81">→ 产出 /sitemap.xml：url / lastModified / changeFrequency / priority</text>
+
+  <!-- metadata -->
+  <rect x="470" y="250" width="540" height="80" rx="8" fill="#fce7f3" stroke="#ec4899" stroke-width="1.5"/>
+  <text x="490" y="276" font-size="14" font-weight="700" fill="#9d174d">layout.tsx / page.tsx 中的 export const metadata</text>
+  <text x="490" y="298" font-size="12" fill="#831843">TDK：title / description / keywords / alternates.canonical</text>
+  <text x="490" y="318" font-size="12" fill="#831843">社交：openGraph / twitter；动态页用 generateMetadata()</text>
+
+  <!-- viewport -->
+  <rect x="470" y="345" width="540" height="55" rx="8" fill="#fce7f3" stroke="#ec4899" stroke-width="1.5"/>
+  <text x="490" y="371" font-size="14" font-weight="700" fill="#9d174d">export const viewport</text>
+  <text x="490" y="392" font-size="12" fill="#831843">themeColor / width / initialScale（Next 14+ 从 metadata 拆出）</text>
+
+  <!-- JSON-LD -->
+  <rect x="470" y="415" width="540" height="60" rx="8" fill="#d1fae5" stroke="#10b981" stroke-width="1.5"/>
+  <text x="490" y="441" font-size="14" font-weight="700" fill="#065f46">&lt;script type="application/ld+json"&gt;</text>
+  <text x="490" y="463" font-size="12" fill="#064e3b">JSON-LD 结构化数据：Organization / Article / Product / BreadcrumbList</text>
+
+  <!-- Web Vitals -->
+  <rect x="470" y="490" width="540" height="60" rx="8" fill="#fef9c3" stroke="#eab308" stroke-width="1.5"/>
+  <text x="490" y="516" font-size="14" font-weight="700" fill="#854d0e">useReportWebVitals()（next/web-vitals）</text>
+  <text x="490" y="538" font-size="12" fill="#713f12">采集 LCP / INP / CLS / FCP / TTFB → 上报到监控</text>
+
+  <!-- Bottom: render mode note -->
+  <rect x="470" y="575" width="540" height="65" rx="10" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.2"/>
+  <text x="490" y="601" font-size="13" font-weight="700" fill="#334155">为什么 CSR（纯客户端渲染）对 SEO 不友好？</text>
+  <text x="490" y="623" font-size="12" fill="#475569">蜘蛛拿到的初始 HTML 是空 &lt;div id="root"&gt;，内容靠 JS 执行后才填充；Next.js 默认 SSR/RSC，首屏 HTML 即完整内容。</text>
+
+  <!-- Footer -->
+  <text x="540" y="695" text-anchor="middle" font-size="11" fill="#94a3b8">来源：小满zs《Next.js(16)+AI+SEO》p26–p33 · Next.js 16 官方文档</text>
+</svg>

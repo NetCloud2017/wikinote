@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="800" viewBox="0 0 1000 800" font-family="'Microsoft YaHei', 'PingFang SC', Arial, sans-serif">
+  <rect width="1000" height="800" fill="#ffffff"/>
+  <text x="20" y="40" font-size="24" font-weight="bold" fill="#1f2329">Cache Components：静态外壳 + 动态流式（Next.js 16 / App Router）</text>
+
+  <!-- 图例 -->
+  <rect x="20" y="60" width="16" height="16" fill="#e8f1ff" stroke="#3471c9"/>
+  <text x="42" y="73" font-size="13" fill="#555">Static / Revalidated（构建时预渲染）</text>
+  <rect x="285" y="60" width="16" height="16" fill="#e6f7ed" stroke="#2e9e5b"/>
+  <text x="307" y="73" font-size="13" fill="#555">use cache 缓存（可进外壳）</text>
+  <rect x="540" y="60" width="16" height="16" fill="#fff7e6" stroke="#d4a017"/>
+  <text x="562" y="73" font-size="13" fill="#555">Suspense fallback 占位</text>
+  <rect x="790" y="60" width="16" height="16" fill="#f3eaff" stroke="#7b4fc0"/>
+  <text x="812" y="73" font-size="13" fill="#555">Dynamic（请求时流式）</text>
+
+  <!-- ============ 左：页面预览（浏览器窗口） ============ -->
+  <rect x="40" y="95" width="470" height="565" rx="10" fill="#ffffff" stroke="#bbb"/>
+  <rect x="40" y="95" width="470" height="34" rx="10" fill="#eef0f3"/>
+  <rect x="52" y="108" width="12" height="12" rx="6" fill="#ff5f57"/>
+  <rect x="70" y="108" width="12" height="12" rx="6" fill="#febc2e"/>
+  <rect x="88" y="108" width="12" height="12" rx="6" fill="#28c840"/>
+  <rect x="170" y="104" width="220" height="20" rx="10" fill="#ffffff" stroke="#d9dce1"/>
+  <text x="280" y="118" text-anchor="middle" font-size="12" fill="#888">acme.com/blog</text>
+
+  <!-- 导航栏（静态） -->
+  <rect x="60" y="145" width="430" height="46" rx="8" fill="#e8f1ff" stroke="#3471c9"/>
+  <text x="275" y="164" text-anchor="middle" font-size="14" fill="#1d3f73">导航栏 Navbar</text>
+  <text x="275" y="182" text-anchor="middle" font-size="12" fill="#4a6aa8">静态内容 → 自动预渲染，进 static shell</text>
+
+  <!-- 文章标题（静态） -->
+  <rect x="60" y="203" width="430" height="58" rx="8" fill="#e8f1ff" stroke="#3471c9"/>
+  <text x="275" y="224" text-anchor="middle" font-size="14" fill="#1d3f73">文章标题 / 元信息</text>
+  <text x="275" y="242" text-anchor="middle" font-size="12" fill="#4a6aa8">同步 I/O、模块导入、纯计算 → 构建时可完成</text>
+
+  <!-- BlogPosts use cache 缓存 -->
+  <rect x="60" y="273" width="430" height="98" rx="8" fill="#e6f7ed" stroke="#2e9e5b"/>
+  <text x="275" y="294" text-anchor="middle" font-size="14" fill="#0e5a2e">BlogPosts（'use cache' 缓存）</text>
+  <text x="275" y="312" text-anchor="middle" font-size="12" fill="#3b7a52">'use cache' + cacheLife('hours') + cacheTag('posts')</text>
+  <text x="275" y="330" text-anchor="middle" font-size="12" fill="#3b7a52">fresh 期内复用同一份结果 → 进 static shell</text>
+  <text x="275" y="348" text-anchor="middle" font-size="12" fill="#3b7a52">(网络请求在构建时执行，结果被缓存)</text>
+
+  <!-- Suspense fallback -->
+  <rect x="60" y="383" width="430" height="56" rx="8" fill="#fff7e6" stroke="#d4a017"/>
+  <text x="275" y="404" text-anchor="middle" font-size="14" fill="#6b4f00">用户偏好：Suspense fallback</text>
+  <text x="275" y="422" text-anchor="middle" font-size="12" fill="#8a6d1a">占位 UI 进外壳，内容请求时才渲染</text>
+
+  <!-- 动态流式注入 -->
+  <rect x="60" y="451" width="430" height="96" rx="8" fill="#f3eaff" stroke="#7b4fc0" stroke-dasharray="6 4"/>
+  <text x="275" y="474" text-anchor="middle" font-size="14" fill="#3c2370">个性化偏好（cookies / headers）</text>
+  <text x="275" y="492" text-anchor="middle" font-size="12" fill="#6a4bb0">runtime data 不能在 use cache 内直接读</text>
+  <text x="275" y="510" text-anchor="middle" font-size="12" fill="#6a4bb0">请求时就绪后流式注入 → 覆盖 fallback</text>
+  <text x="275" y="528" text-anchor="middle" font-size="12" fill="#6a4bb0">(整条路由不因此退化为全动态)</text>
+
+  <text x="60" y="572" font-size="12" fill="#888">构建产物：static shell = HTML（首屏直达）+ 序列化 RSC Payload（客户端导航）</text>
+  <text x="60" y="590" font-size="12" fill="#888">直接访问可整页由 CDN 服务，无需回源；仅动态部分在请求时补全。</text>
+
+  <!-- ============ 右：三张说明卡片 ============ -->
+  <rect x="540" y="95" width="420" height="172" rx="8" fill="#eef5ff" stroke="#3471c9"/>
+  <text x="556" y="120" font-size="15" font-weight="bold" fill="#1d3f73">构建时 next build（prerender）→ 进 static shell</text>
+  <text x="556" y="146" font-size="13" fill="#333">· 同步 I/O、模块导入、纯计算 → 自动预渲染</text>
+  <text x="556" y="168" font-size="13" fill="#333">· 'use cache' 缓存内容 → cacheLife 新鲜期内可进外壳</text>
+  <text x="556" y="190" font-size="13" fill="#333">· &lt;Suspense&gt; 的 fallback → 占位 UI 也进外壳</text>
+  <text x="556" y="212" font-size="13" fill="#333">· 若直接访问 cookies/headers → 会触发动态路径，需显式处理</text>
+  <text x="556" y="234" font-size="13" fill="#333">· 校验通过才产出外壳，否则 dev 覆层给出 blocking-route 等提示</text>
+
+  <rect x="540" y="287" width="420" height="196" rx="8" fill="#f3eaff" stroke="#7b4fc0"/>
+  <text x="556" y="312" font-size="15" font-weight="bold" fill="#3c2370">请求时 request time → 流式注入（Dynamic）</text>
+  <text x="556" y="338" font-size="13" fill="#333">· &lt;Suspense&gt; 内动态内容：网络请求 / DB 查询 / 异步 I/O</text>
+  <text x="556" y="360" font-size="13" fill="#333">· runtime data：cookies / headers / searchParams / params</text>
+  <text x="556" y="382" font-size="13" fill="#333">  (不能被 use cache 缓存，必须包在 Suspense 里)</text>
+  <text x="556" y="404" font-size="13" fill="#333">· 非确定性：Math.random / Date.now / crypto.randomUUID</text>
+  <text x="556" y="426" font-size="13" fill="#333">  → 先 await connection() 延迟到请求时，再包 Suspense</text>
+  <text x="556" y="448" font-size="13" fill="#333">· 多个 Suspense 边界可并行流式，互不阻塞</text>
+
+  <rect x="540" y="503" width="420" height="130" rx="8" fill="#fff7e6" stroke="#d4a017"/>
+  <text x="556" y="528" font-size="15" font-weight="bold" fill="#6b4f00">规则：无法预渲染的内容必须显式处理，否则报错</text>
+  <text x="556" y="554" font-size="13" fill="#333">· Uncached data was accessed outside of &lt;Suspense&gt;</text>
+  <text x="556" y="576" font-size="13" fill="#333">· blocking-route / blocking-prerender-random</text>
+  <text x="556" y="598" font-size="13" fill="#333">· blocking-prerender-current-time / -crypto</text>
+  <text x="556" y="620" font-size="13" fill="#333">→ 修复：包 Suspense 流式，或用 use cache 缓存进外壳</text>
+
+  <!-- 底部结论条 -->
+  <rect x="40" y="680" width="920" height="74" rx="10" fill="#f6f8fa" stroke="#999"/>
+  <text x="60" y="706" font-size="14" font-weight="bold" fill="#1f2329">同一路由可混合：静态 + 缓存 + 动态，互不降级。</text>
+  <text x="60" y="730" font-size="13" fill="#555">静态外壳先到（秒开、SEO 好）→ 动态部分流式补全；相比旧模型「整页静态 or 整页动态」的二选一，这是粒度更细的显式缓存。</text>
+</svg>

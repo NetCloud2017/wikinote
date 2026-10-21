@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="740" viewBox="0 0 1000 740" font-family="'Microsoft YaHei', 'PingFang SC', Arial, sans-serif">
+  <rect width="1000" height="740" fill="#ffffff"/>
+  <text x="20" y="36" font-size="24" font-weight="bold" fill="#1f2329">Next.js 16 六种 CSS 解决方案对比</text>
+  <text x="20" y="60" font-size="13" fill="#888">App Router 基线 · 按“是否需要额外配置 / 使用成本 / 推荐度”梳理</text>
+
+  <!-- 表头 -->
+  <text x="20" y="88" font-size="13" fill="#888">方案</text>
+  <text x="200" y="88" font-size="13" fill="#888">是否需配置</text>
+  <text x="350" y="88" font-size="13" fill="#888">特点 / 用法要点</text>
+  <text x="830" y="88" font-size="13" fill="#888">推荐度</text>
+
+  <!-- ============ 行1 Tailwind ============ -->
+  <g>
+    <rect x="20" y="100" width="960" height="92" rx="8" fill="#e8f1ff" stroke="#3471c9"/>
+    <rect x="20" y="100" width="170" height="92" rx="8" fill="#3471c9"/>
+    <text x="105" y="138" text-anchor="middle" font-size="16" font-weight="bold" fill="#ffffff">Tailwind CSS</text>
+    <text x="105" y="160" text-anchor="middle" font-size="12" fill="#dbe6fa">原子化 CSS 框架</text>
+    <text x="200" y="132" font-size="13" fill="#1d3f73">需配置</text>
+    <text x="200" y="154" font-size="12" fill="#4a6aa8">创建勾选 / 手动装依赖</text>
+    <text x="200" y="174" font-size="12" fill="#4a6aa8">+ postcss.config.mjs</text>
+    <text x="350" y="128" font-size="12" fill="#1d3f73">类名即样式，编写时不关心 CSS 本身</text>
+    <text x="350" y="148" font-size="12" fill="#1d3f73">响应式 / 滤镜 / 亮暗色 / 颜色变量 / Grid / 动画 / 3D</text>
+    <text x="350" y="168" font-size="12" fill="#4a6aa8">配 VSCode 插件可代码提示（如 text-red-500）</text>
+    <text x="830" y="136" font-size="16" fill="#1d3f73">★★★</text>
+    <text x="830" y="158" font-size="12" fill="#4a6aa8">讲师最推荐</text>
+  </g>
+
+  <!-- ============ 行2 CSS Modules ============ -->
+  <g>
+    <rect x="20" y="200" width="960" height="92" rx="8" fill="#e6f7ed" stroke="#2e9e5b"/>
+    <rect x="20" y="200" width="170" height="92" rx="8" fill="#2e9e5b"/>
+    <text x="105" y="238" text-anchor="middle" font-size="16" font-weight="bold" fill="#ffffff">CSS Modules</text>
+    <text x="105" y="260" text-anchor="middle" font-size="12" fill="#d3efdd">样式隔离（类 Vue scoped）</text>
+    <text x="200" y="238" font-size="13" fill="#0e5a2e">天然支持，零配置</text>
+    <text x="200" y="262" font-size="12" fill="#3b7a52">命名 xxx.module.css</text>
+    <text x="350" y="228" font-size="12" fill="#0e5a2e">文件中间必须带 .module. 才被识别</text>
+    <text x="350" y="248" font-size="12" fill="#0e5a2e">编译生成唯一类名（带哈希），跨文件不冲突</text>
+    <text x="350" y="268" font-size="12" fill="#3b7a52">import 后转成对象，用 styles.Container 访问</text>
+    <text x="830" y="238" font-size="16" fill="#0e5a2e">★★★</text>
+    <text x="830" y="260" font-size="12" fill="#3b7a52">好用不麻烦</text>
+  </g>
+
+  <!-- ============ 行3 SASS ============ -->
+  <g>
+    <rect x="20" y="300" width="960" height="92" rx="8" fill="#f3eaff" stroke="#7b4fc0"/>
+    <rect x="20" y="300" width="170" height="92" rx="8" fill="#7b4fc0"/>
+    <text x="105" y="338" text-anchor="middle" font-size="16" font-weight="bold" fill="#ffffff">SASS</text>
+    <text x="105" y="360" text-anchor="middle" font-size="12" fill="#e3d8f7">CSS 预处理器</text>
+    <text x="200" y="338" font-size="13" fill="#3c2370">内置，无需配置</text>
+    <text x="200" y="362" font-size="12" fill="#6a4bb0">仅需手动安装依赖</text>
+    <text x="350" y="328" font-size="12" fill="#3c2370">支持变量 $var、嵌套等（文件后缀 .scss / .sass）</text>
+    <text x="350" y="348" font-size="12" fill="#3c2370">可选 sassOptions.additionalData 配置全局变量 / 全局文件</text>
+    <text x="350" y="368" font-size="12" fill="#6a4bb0">全局变量写法末尾必须加分号，否则报错</text>
+    <text x="830" y="338" font-size="16" fill="#3c2370">★★★</text>
+    <text x="830" y="360" font-size="12" fill="#6a4bb0">支持全局变量</text>
+  </g>
+
+  <!-- ============ 行4 全局CSS ============ -->
+  <g>
+    <rect x="20" y="400" width="960" height="92" rx="8" fill="#fff7e6" stroke="#d4a017"/>
+    <rect x="20" y="400" width="170" height="92" rx="8" fill="#d4a017"/>
+    <text x="105" y="438" text-anchor="middle" font-size="16" font-weight="bold" fill="#ffffff">全局 CSS</text>
+    <text x="105" y="460" text-anchor="middle" font-size="12" fill="#fdeccb">普通全局样式</text>
+    <text x="200" y="446" font-size="13" fill="#6b4f00">需在 layout.tsx 引入</text>
+    <text x="350" y="434" font-size="12" fill="#6b4f00">global.css 在 layout.tsx 引入后全局生效</text>
+    <text x="350" y="454" font-size="12" fill="#6b4f00">任何页面 / 组件都能直接使用其中样式</text>
+    <text x="350" y="474" font-size="12" fill="#8a6d1a">相当于“手动挡的 Tailwind”</text>
+    <text x="830" y="442" font-size="16" fill="#8a6d1a">★</text>
+    <text x="830" y="462" font-size="12" fill="#8a6d1a">讲师不推荐</text>
+  </g>
+
+  <!-- ============ 行5 内联style ============ -->
+  <g>
+    <rect x="20" y="500" width="960" height="92" rx="8" fill="#f2f2f2" stroke="#999"/>
+    <rect x="20" y="500" width="170" height="92" rx="8" fill="#999"/>
+    <text x="105" y="538" text-anchor="middle" font-size="16" font-weight="bold" fill="#ffffff">内联 style</text>
+    <text x="105" y="560" text-anchor="middle" font-size="12" fill="#ddd">行内样式</text>
+    <text x="200" y="546" font-size="13" fill="#444">无需配置</text>
+    <text x="350" y="536" font-size="12" fill="#444">直接在元素 style 属性里写样式对象</text>
+    <text x="350" y="556" font-size="12" fill="#666">适合学习 / 临时测试</text>
+    <text x="350" y="576" font-size="12" fill="#666">不用于正式工程</text>
+    <text x="830" y="546" font-size="16" fill="#666">★</text>
+    <text x="830" y="566" font-size="12" fill="#666">测试用</text>
+  </g>
+
+  <!-- ============ 行6 CSS-in-JS ============ -->
+  <g>
+    <rect x="20" y="600" width="960" height="92" rx="8" fill="#fdecea" stroke="#c0392b"/>
+    <rect x="20" y="600" width="170" height="92" rx="8" fill="#c0392b"/>
+    <text x="105" y="638" text-anchor="middle" font-size="16" font-weight="bold" fill="#ffffff">CSS in JS</text>
+    <text x="105" y="660" text-anchor="middle" font-size="12" fill="#f7c6c1">(Styled Components)</text>
+    <text x="200" y="646" font-size="13" fill="#7e1d14">需配置，步骤多</text>
+    <text x="350" y="626" font-size="12" fill="#7e1d14">把 HTML / CSS / JS 混合；概念，实现多样</text>
+    <text x="350" y="646" font-size="12" fill="#7e1d14">四步：装依赖 → compiler.styledComponents →</text>
+    <text x="350" y="666" font-size="12" fill="#a03a2e">lib/registry.tsx → layout 用 Registry 包裹</text>
+    <text x="830" y="636" font-size="16" fill="#a03a2e">★</text>
+    <text x="830" y="656" font-size="12" fill="#a03a2e">多数人不喜欢</text>
+  </g>
+
+  <text x="20" y="720" font-size="12" fill="#999">注：Next.js 16 默认 App Router；除 Tailwind 与 CSS-in-JS 需在 next.config / postcss 中配置外，其余方案开箱可用。</text>
+</svg>

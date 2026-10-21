@@ -1,0 +1,47 @@
+<svg width="860" height="620" viewBox="0 0 860 620" xmlns="http://www.w3.org/2000/svg" font-family="'Microsoft YaHei','PingFang SC',sans-serif">
+  <rect width="860" height="620" fill="#fafafa"/>
+  <text x="430" y="42" text-anchor="middle" font-size="24" font-weight="bold" fill="#111">Next.js 环境变量文件加载优先级（自上而下，先命中即停）</text>
+  <text x="430" y="70" text-anchor="middle" font-size="14" fill="#666">NODE_ENV 可选值：development / production / test　·　以 Next.js 16 为基线</text>
+
+  <!-- ① process.env -->
+  <rect x="130" y="104" width="540" height="62" rx="8" fill="#c62828"/>
+  <text x="152" y="132" font-size="18" font-weight="bold" fill="#fff">① process.env</text>
+  <text x="152" y="156" font-size="13" fill="#ffe0e0">进程环境中已存在的变量（系统 / shell export 注入）— 优先级最高</text>
+
+  <!-- ② .env.$(NODE_ENV).local -->
+  <rect x="130" y="182" width="540" height="62" rx="8" fill="#e65100"/>
+  <text x="152" y="210" font-size="18" font-weight="bold" fill="#fff">② .env.$(NODE_ENV).local</text>
+  <text x="152" y="234" font-size="13" fill="#ffe0c2">开发时即 .env.development.local（含密钥，不入库）</text>
+
+  <!-- ③ .env.local -->
+  <rect x="130" y="260" width="540" height="62" rx="8" fill="#ad1457"/>
+  <text x="152" y="288" font-size="18" font-weight="bold" fill="#fff">③ .env.local</text>
+  <text x="152" y="312" font-size="13" fill="#ffd7e0">本地覆盖、含密钥，不入库；NODE_ENV=test 时不加载</text>
+
+  <!-- ④ .env.$(NODE_ENV) -->
+  <rect x="130" y="338" width="540" height="62" rx="8" fill="#1565c0"/>
+  <text x="152" y="366" font-size="18" font-weight="bold" fill="#fff">④ .env.$(NODE_ENV)</text>
+  <text x="152" y="390" font-size="13" fill="#d4e4ff">如 .env.development / .env.production（入库，一般不含密钥）</text>
+
+  <!-- ⑤ .env -->
+  <rect x="130" y="416" width="540" height="62" rx="8" fill="#2e7d32"/>
+  <text x="152" y="444" font-size="18" font-weight="bold" fill="#fff">⑤ .env</text>
+  <text x="152" y="468" font-size="13" fill="#d8f2da">所有环境共享的默认值（入库，不含密钥）— 优先级最低</text>
+
+  <!-- 优先级箭头 -->
+  <line x1="686" y1="135" x2="686" y2="447" stroke="#666" stroke-width="3" marker-end="url(#arr)"/>
+  <text x="700" y="285" font-size="14" fill="#333">优先级</text>
+  <text x="700" y="305" font-size="14" fill="#333">高 ↓ 低</text>
+  <defs>
+    <marker id="arr" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#666"/>
+    </marker>
+  </defs>
+
+  <!-- 说明 -->
+  <rect x="60" y="508" width="740" height="96" rx="10" fill="#fff3e0" stroke="#ef6c00"/>
+  <text x="80" y="532" font-size="14" font-weight="bold" fill="#e65100">关键点</text>
+  <text x="80" y="556" font-size="13" fill="#4e342e">· 优先级 = 查找顺序；同名变量先被找到的生效（例如 .env.development.local 覆盖 .env）。</text>
+  <text x="80" y="576" font-size="13" fill="#4e342e">· .env* 只从项目根目录加载（使用 /src 时同样放根目录），不会读 /src 下的 .env。</text>
+  <text x="80" y="596" font-size="13" fill="#4e342e">· NODE_ENV 未设置时：next dev 自动设为 development；其余命令（build/start）设为 production。</text>
+</svg>

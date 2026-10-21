@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="660" viewBox="0 0 1000 660" font-family="'Microsoft YaHei', 'PingFang SC', Arial, sans-serif">
+  <rect width="1000" height="660" fill="#ffffff"/>
+  <text x="20" y="38" font-size="24" font-weight="bold" fill="#1f2329">next/image 图片优化管线与 srcset 生成（Next.js 16 / App Router）</text>
+
+  <!-- 图例 -->
+  <rect x="20" y="56" width="14" height="14" fill="#e8f1ff" stroke="#3471c9"/>
+  <text x="40" y="68" font-size="13" fill="#555">输入源 src</text>
+  <rect x="150" y="56" width="14" height="14" fill="#fff7e6" stroke="#d4a017"/>
+  <text x="170" y="68" font-size="13" fill="#555">Image 优化管线（loader）</text>
+  <rect x="360" y="56" width="14" height="14" fill="#e6f7ed" stroke="#2e9e5b"/>
+  <text x="380" y="68" font-size="13" fill="#555">浏览器端选择</text>
+  <rect x="520" y="56" width="14" height="14" fill="#f3eaff" stroke="#7b4fc0"/>
+  <text x="540" y="68" font-size="13" fill="#555">磁盘缓存 / srcset 输出</text>
+
+  <!-- ============ 输入源 ============ -->
+  <rect x="40" y="90" width="250" height="150" rx="10" fill="#e8f1ff" stroke="#3471c9"/>
+  <text x="165" y="116" text-anchor="middle" font-size="15" fill="#1d3f73" font-weight="bold">输入源 src</text>
+  <text x="165" y="142" text-anchor="middle" font-size="12" fill="#33538a">① 本地路径：src="/profile.png"</text>
+  <text x="165" y="162" text-anchor="middle" font-size="12" fill="#33538a">② 静态 import：import img from './a.png'</text>
+  <text x="165" y="182" text-anchor="middle" font-size="12" fill="#33538a">③ 远程 URL：https://...</text>
+  <text x="165" y="204" text-anchor="middle" font-size="12" fill="#8a4b1a">远程必须先在 next.config 配 remotePatterns</text>
+  <text x="165" y="224" text-anchor="middle" font-size="12" fill="#8a4b1a">（静态 import 会自动加 blurDataURL）</text>
+
+  <!-- 箭头 -->
+  <line x1="290" y1="165" x2="330" y2="165" stroke="#d4a017" stroke-width="3"/>
+  <polygon points="330,158 345,165 330,172" fill="#d4a017"/>
+
+  <!-- ============ 优化管线 ============ -->
+  <rect x="350" y="90" width="290" height="150" rx="10" fill="#fff7e6" stroke="#d4a017"/>
+  <text x="495" y="116" text-anchor="middle" font-size="15" fill="#6b4f00" font-weight="bold">Image 优化管线（默认 loader）</text>
+  <text x="495" y="140" text-anchor="middle" font-size="12" fill="#7a5f14">请求形如 /_next/image?url=...&amp;w=828&amp;q=75</text>
+  <text x="495" y="164" text-anchor="middle" font-size="12" fill="#7a5f14">① 尺寸缩放（按 deviceSizes / imageSizes）</text>
+  <text x="495" y="184" text-anchor="middle" font-size="12" fill="#7a5f14">② 格式转换 webp / avif（Accept 头探测）</text>
+  <text x="495" y="204" text-anchor="middle" font-size="12" fill="#7a5f14">③ 质量压缩 quality（16 起用 qualities 白名单）</text>
+  <text x="495" y="224" text-anchor="middle" font-size="12" fill="#7a5f14">④ 磁盘缓存（默认最大 50% 可用空间）</text>
+
+  <!-- 箭头 -->
+  <line x1="640" y1="165" x2="680" y2="165" stroke="#d4a017" stroke-width="3"/>
+  <polygon points="680,158 695,165 680,172" fill="#d4a017"/>
+
+  <!-- ============ 浏览器选择 ============ -->
+  <rect x="700" y="90" width="260" height="150" rx="10" fill="#e6f7ed" stroke="#2e9e5b"/>
+  <text x="830" y="116" text-anchor="middle" font-size="15" fill="#0e5a2e" font-weight="bold">浏览器端选择</text>
+  <text x="830" y="140" text-anchor="middle" font-size="12" fill="#2f6b45">img 带 srcset + sizes</text>
+  <text x="830" y="162" text-anchor="middle" font-size="12" fill="#2f6b45">按 视口宽度 × 设备像素比 选最合适档位</text>
+  <text x="830" y="184" text-anchor="middle" font-size="12" fill="#2f6b45">只有用到的宽度才会被下载</text>
+  <text x="830" y="206" text-anchor="middle" font-size="12" fill="#2f6b45">无 sizes 时按 100vw 下载偏大的图</text>
+
+  <!-- 缓存回写箭头 -->
+  <path d="M 640 240 L 640 268 L 500 268" stroke="#7b4fc0" stroke-width="2" fill="none" stroke-dasharray="5 4" marker-end="url(#arrowPurple)"/>
+
+  <!-- ============ 磁盘缓存 ============ -->
+  <rect x="350" y="272" width="290" height="72" rx="10" fill="#f3eaff" stroke="#7b4fc0"/>
+  <text x="495" y="300" text-anchor="middle" font-size="14" fill="#3c2370" font-weight="bold">磁盘缓存 cache/images</text>
+  <text x="495" y="322" text-anchor="middle" font-size="12" fill="#6a4bb0">LRU 淘汰；无失效机制，TTL 由 minimumCacheTTL 决定</text>
+
+  <!-- ============ 下方：sizes 对 srcset 的影响 ============ -->
+  <rect x="40" y="380" width="920" height="120" rx="10" fill="#ffffff" stroke="#d9dce1"/>
+  <text x="60" y="410" font-size="15" fill="#1f2329" font-weight="bold">sizes 对 srcset 的影响</text>
+
+  <!-- 无 sizes -->
+  <rect x="60" y="424" width="420" height="62" rx="8" fill="#fafafa" stroke="#d4a017"/>
+  <text x="75" y="447" font-size="13" fill="#6b4f00" font-weight="bold">无 sizes</text>
+  <text x="75" y="466" font-size="12" fill="#7a5f14">固定尺寸图 → 只生成 1x / 2x 两档（如 640w / 828w）</text>
+  <text x="75" y="482" font-size="12" fill="#7a5f14">fill 图 → 按 deviceSizes 全视口档位，浏览器假设 100vw</text>
+
+  <!-- 有 sizes -->
+  <rect x="500" y="424" width="440" height="62" rx="8" fill="#fafafa" stroke="#2e9e5b"/>
+  <text x="515" y="447" font-size="13" fill="#0e5a2e" font-weight="bold">有 sizes</text>
+  <text x="515" y="466" font-size="12" fill="#2f6b45">生成完整 srcset：640w / 750w / 828w / ... / 3840w</text>
+  <text x="515" y="482" font-size="12" fill="#2f6b45">例：sizes="(max-width:768px) 100vw, 33vw" → 按需选最小合适档</text>
+
+  <!-- 底部提醒 -->
+  <rect x="40" y="516" width="920" height="60" rx="8" fill="#fff3f0" stroke="#d9480f"/>
+  <text x="60" y="540" font-size="14" fill="#a3260e" font-weight="bold">16 变化提醒</text>
+  <text x="60" y="560" font-size="12" fill="#c2451a">priority 已被弃用 → 改用 preload；images.qualities 从 16 起为必填配置（默认 [75]），未列入的 quality 会就近取整并告警。</text>
+</svg>

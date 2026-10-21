@@ -1,0 +1,113 @@
+<svg width="1120" height="620" viewBox="0 0 1120 620" xmlns="http://www.w3.org/2000/svg" font-family="'Microsoft YaHei','PingFang SC',sans-serif">
+  <rect width="1120" height="620" fill="#fafafa"/>
+  <text x="560" y="40" text-anchor="middle" font-size="24" font-weight="bold" fill="#111">npm run dev 运行机制 + 获取环境变量流程（Next.js 16）</text>
+
+  <!-- 列 1：命令层 -->
+  <rect x="30" y="70" width="240" height="470" rx="12" fill="#eceff1" stroke="#90a4ae"/>
+  <text x="150" y="100" text-anchor="middle" font-size="16" font-weight="bold" fill="#37474f">① 命令层：npm run dev</text>
+
+  <rect x="48" y="118" width="204" height="64" rx="8" fill="#455a64"/>
+  <text x="150" y="146" text-anchor="middle" font-size="14" font-weight="bold" fill="#fff">终端输入</text>
+  <text x="150" y="170" text-anchor="middle" font-size="13" fill="#cfd8dc">npm run dev</text>
+
+  <line x1="150" y1="182" x2="150" y2="202" stroke="#546e7a" stroke-width="2" marker-end="url(#a1)"/>
+  <rect x="48" y="204" width="204" height="92" rx="8" fill="#546e7a"/>
+  <text x="150" y="230" text-anchor="middle" font-size="13" font-weight="bold" fill="#fff">npm 读取 package.json</text>
+  <text x="150" y="252" text-anchor="middle" font-size="12" fill="#e3f2fd">scripts.dev = "next dev"</text>
+  <text x="150" y="272" text-anchor="middle" font-size="12" fill="#e3f2fd">→ 用 shell 执行该命令</text>
+  <text x="150" y="290" text-anchor="middle" font-size="12" fill="#ffe0b2">run 会注入 PATH 中 node_modules/.bin</text>
+
+  <line x1="150" y1="296" x2="150" y2="316" stroke="#546e7a" stroke-width="2" marker-end="url(#a1)"/>
+  <rect x="48" y="318" width="204" height="86" rx="8" fill="#37474f"/>
+  <text x="150" y="346" text-anchor="middle" font-size="13" font-weight="bold" fill="#fff">执行 next dev</text>
+  <text x="150" y="368" text-anchor="middle" font-size="12" fill="#eceff1">启动开发服务器</text>
+  <text x="150" y="386" text-anchor="middle" font-size="12" fill="#eceff1">默认端口 3000（-p 改端口）</text>
+
+  <!-- 列 2：启动层 -->
+  <rect x="300" y="70" width="240" height="470" rx="12" fill="#e3f2fd" stroke="#42a5f5"/>
+  <text x="420" y="100" text-anchor="middle" font-size="16" font-weight="bold" fill="#0d47a1">② 启动层：开发服务器</text>
+
+  <rect x="318" y="118" width="204" height="80" rx="8" fill="#1565c0"/>
+  <text x="420" y="146" text-anchor="middle" font-size="13" font-weight="bold" fill="#fff">自动设置 NODE_ENV</text>
+  <text x="420" y="170" text-anchor="middle" font-size="12" fill="#bbdefb">next dev → development</text>
+  <text x="420" y="188" text-anchor="middle" font-size="12" fill="#bbdefb">（决定加载哪些 .env 文件）</text>
+
+  <line x1="420" y1="198" x2="420" y2="218" stroke="#1565c0" stroke-width="2" marker-end="url(#a2)"/>
+  <rect x="318" y="220" width="204" height="96" rx="8" fill="#1e88e5"/>
+  <text x="420" y="248" text-anchor="middle" font-size="13" font-weight="bold" fill="#fff">Turbopack（Next 16 默认打包器）</text>
+  <text x="420" y="272" text-anchor="middle" font-size="12" fill="#e3f2fd">· 按需编译：请求哪个路由编译哪个</text>
+  <text x="420" y="292" text-anchor="middle" font-size="12" fill="#e3f2fd">· Fast Refresh（热更新）</text>
+  <text x="420" y="310" text-anchor="middle" font-size="12" fill="#e3f2fd">· 监听文件变化</text>
+
+  <line x1="420" y1="316" x2="420" y2="336" stroke="#1565c0" stroke-width="2" marker-end="url(#a2)"/>
+  <rect x="318" y="338" width="204" height="118" rx="8" fill="#42a5f5"/>
+  <text x="420" y="364" text-anchor="middle" font-size="13" font-weight="bold" fill="#fff">开发模式特性</text>
+  <text x="420" y="388" text-anchor="middle" font-size="12" fill="#0d47a1">· 编译 / 构建不缓存到 .next</text>
+  <text x="420" y="408" text-anchor="middle" font-size="12" fill="#0d47a1">· 错误覆盖层（overlay）</text>
+  <text x="420" y="428" text-anchor="middle" font-size="12" fill="#0d47a1">· 开发日志 / 请求耗时</text>
+  <text x="420" y="448" text-anchor="middle" font-size="12" fill="#0d47a1">· 不做生产优化（minify 等）</text>
+
+  <!-- 列 3：加载层 -->
+  <rect x="570" y="70" width="240" height="470" rx="12" fill="#fff3e0" stroke="#fb8c00"/>
+  <text x="690" y="100" text-anchor="middle" font-size="16" font-weight="bold" fill="#e65100">③ 加载层：注入 .env</text>
+
+  <rect x="588" y="118" width="204" height="96" rx="8" fill="#ef6c00"/>
+  <text x="690" y="146" text-anchor="middle" font-size="13" font-weight="bold" fill="#fff">按优先级加载 .env* 文件</text>
+  <text x="690" y="170" text-anchor="middle" font-size="12" fill="#ffe0b2">process.env → .env.dev.local</text>
+  <text x="690" y="190" text-anchor="middle" font-size="12" fill="#ffe0b2">→ .env.local → .env.dev → .env</text>
+  <text x="690" y="208" text-anchor="middle" font-size="12" fill="#fff3e0">（见优先级图，先命中即停）</text>
+
+  <line x1="690" y1="214" x2="690" y2="234" stroke="#ef6c00" stroke-width="2" marker-end="url(#a3)"/>
+  <rect x="588" y="236" width="204" height="84" rx="8" fill="#f57c00"/>
+  <text x="690" y="264" text-anchor="middle" font-size="13" font-weight="bold" fill="#fff">合并进 process.env</text>
+  <text x="690" y="288" text-anchor="middle" font-size="12" fill="#ffe0b2">服务端代码可读 process.env.X</text>
+  <text x="690" y="306" text-anchor="middle" font-size="12" fill="#ffe0b2">启动时加载一次，改文件需重启</text>
+
+  <line x1="690" y1="320" x2="690" y2="340" stroke="#ef6c00" stroke-width="2" marker-end="url(#a3)"/>
+  <rect x="588" y="342" width="204" height="114" rx="8" fill="#fb8c00"/>
+  <text x="690" y="368" text-anchor="middle" font-size="13" font-weight="bold" fill="#fff">高级能力</text>
+  <text x="690" y="392" text-anchor="middle" font-size="12" fill="#3e2723">· 支持 $ 引用其他变量</text>
+  <text x="690" y="412" text-anchor="middle" font-size="12" fill="#3e2723">· 支持多行变量值</text>
+  <text x="690" y="432" text-anchor="middle" font-size="12" fill="#3e2723">· 可用 @next/env 在 Next 之外加载</text>
+  <text x="690" y="450" text-anchor="middle" font-size="12" fill="#3e2723">· 只从根目录读取，不读 /src</text>
+
+  <!-- 列 4：读取层 -->
+  <rect x="840" y="70" width="250" height="470" rx="12" fill="#e8f5e9" stroke="#66bb6a"/>
+  <text x="965" y="100" text-anchor="middle" font-size="16" font-weight="bold" fill="#1b5e20">④ 读取层：谁读得到</text>
+
+  <rect x="858" y="118" width="214" height="92" rx="8" fill="#2e7d32"/>
+  <text x="965" y="146" text-anchor="middle" font-size="13" font-weight="bold" fill="#fff">服务端（Node 环境）</text>
+  <text x="965" y="170" text-anchor="middle" font-size="12" fill="#d8f2da">Server Component / Route Handler</text>
+  <text x="965" y="190" text-anchor="middle" font-size="12" fill="#d8f2da">直接 process.env.X 即可</text>
+
+  <line x1="965" y1="210" x2="965" y2="230" stroke="#2e7d32" stroke-width="2" marker-end="url(#a4)"/>
+  <rect x="858" y="232" width="214" height="92" rx="8" fill="#43a047"/>
+  <text x="965" y="260" text-anchor="middle" font-size="13" font-weight="bold" fill="#fff">客户端（浏览器）</text>
+  <text x="965" y="284" text-anchor="middle" font-size="12" fill="#e8f5e9">必须 NEXT_PUBLIC_ 前缀</text>
+  <text x="965" y="304" text-anchor="middle" font-size="12" fill="#e8f5e9">构建时被内联进 JS 包</text>
+
+  <line x1="965" y1="324" x2="965" y2="344" stroke="#2e7d32" stroke-width="2" marker-end="url(#a4)"/>
+  <rect x="858" y="346" width="214" height="108" rx="8" fill="#66bb6a"/>
+  <text x="965" y="372" text-anchor="middle" font-size="13" font-weight="bold" fill="#1b5e20">运行时（动态）读取</text>
+  <text x="965" y="396" text-anchor="middle" font-size="12" fill="#1b5e20">await connection() 之后读</text>
+  <text x="965" y="416" text-anchor="middle" font-size="12" fill="#1b5e20">process.env → 动态渲染</text>
+  <text x="965" y="436" text-anchor="middle" font-size="12" fill="#1b5e20">适合一套镜像多环境部署</text>
+  <text x="965" y="452" text-anchor="middle" font-size="12" fill="#1b5e20">（不写则构建时内联固定值）</text>
+
+  <defs>
+    <marker id="a1" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#546e7a"/></marker>
+    <marker id="a2" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1565c0"/></marker>
+    <marker id="a3" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef6c00"/></marker>
+    <marker id="a4" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#2e7d32"/></marker>
+  </defs>
+
+  <!-- 横向大箭头 -->
+  <line x1="280" y1="300" x2="298" y2="300" stroke="#888" stroke-width="3" marker-end="url(#h1)"/>
+  <line x1="550" y1="300" x2="568" y2="300" stroke="#888" stroke-width="3" marker-end="url(#h2)"/>
+  <line x1="820" y1="300" x2="838" y2="300" stroke="#888" stroke-width="3" marker-end="url(#h3)"/>
+  <defs>
+    <marker id="h1" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#888"/></marker>
+    <marker id="h2" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#888"/></marker>
+    <marker id="h3" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#888"/></marker>
+  </defs>
+</svg>

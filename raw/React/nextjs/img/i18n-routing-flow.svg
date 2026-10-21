@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 680" font-family="Segoe UI, Microsoft YaHei, PingFang SC, sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#667085"/>
+    </marker>
+    <marker id="arrowBlue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2E6BFF"/>
+    </marker>
+    <marker id="arrowGreen" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#12B76A"/>
+    </marker>
+  </defs>
+
+  <!-- 背景 -->
+  <rect x="0" y="0" width="1000" height="680" fill="#FFFFFF"/>
+
+  <!-- 标题 -->
+  <text x="500" y="44" text-anchor="middle" font-size="26" font-weight="700" fill="#1A1A1A">Next.js I18n：locale 协商与路由处理流程</text>
+  <text x="500" y="70" text-anchor="middle" font-size="13.5" fill="#667085">无语言前缀的请求到达 → Proxy 协商 locale → 跳转或重写 → 命中 app/[lang] 渲染对应语言</text>
+
+  <!-- ① 用户请求 -->
+  <rect x="40" y="120" width="215" height="130" rx="12" fill="#F2F4F7" stroke="#98A2B3" stroke-width="1.5"/>
+  <text x="147" y="158" text-anchor="middle" font-size="17" font-weight="700" fill="#1A1A1A">① 用户请求</text>
+  <text x="147" y="186" text-anchor="middle" font-size="13" fill="#475467">GET /products</text>
+  <text x="147" y="208" text-anchor="middle" font-size="13" fill="#475467">（URL 无语言前缀）</text>
+  <text x="147" y="232" text-anchor="middle" font-size="12" fill="#98A2B3">携带 Accept-Language / Cookie</text>
+
+  <!-- 箭头 ①→② -->
+  <line x1="255" y1="185" x2="355" y2="185" stroke="#667085" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- ② Proxy 协商（高亮） -->
+  <rect x="360" y="100" width="285" height="170" rx="12" fill="#FFF7E6" stroke="#F79009" stroke-width="2.5"/>
+  <text x="502" y="130" text-anchor="middle" font-size="17" font-weight="700" fill="#B54708">② Proxy 中间件</text>
+  <text x="502" y="152" text-anchor="middle" font-size="12" fill="#B54708">locale 协商（createMiddleware /</text>
+  <text x="502" y="168" text-anchor="middle" font-size="12" fill="#B54708">Negotiator + intl-localematcher）</text>
+  <text x="386" y="194" font-size="12.5" fill="#475467">按优先级取最优 locale：</text>
+  <text x="386" y="214" font-size="12.5" fill="#475467">1️⃣ pathname 已有前缀（/en/...）</text>
+  <text x="386" y="232" font-size="12.5" fill="#475467">2️⃣ Cookie（NEXT_LOCALE）</text>
+  <text x="386" y="250" font-size="12.5" fill="#475467">3️⃣ Accept-Language 头</text>
+  <text x="386" y="266" font-size="12.5" fill="#475467">4️⃣ defaultLocale 兜底</text>
+
+  <!-- 箭头 ②→③ -->
+  <line x1="645" y1="185" x2="735" y2="185" stroke="#667085" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- ③ 判定 -->
+  <rect x="740" y="120" width="225" height="130" rx="12" fill="#EEF4FF" stroke="#2E6BFF" stroke-width="1.5"/>
+  <text x="852" y="158" text-anchor="middle" font-size="16" font-weight="700" fill="#175CD3">③ 判定</text>
+  <text x="852" y="184" text-anchor="middle" font-size="13" fill="#344054">pathname 已有 /[lang] 前缀？</text>
+  <text x="852" y="206" text-anchor="middle" font-size="13" fill="#344054">是 → 放行（next）</text>
+  <text x="852" y="228" text-anchor="middle" font-size="13" fill="#344054">否 → 加前缀处理</text>
+
+  <!-- 分支：redirect（左） -->
+  <path d="M852,250 L852,345 L310,345 L310,378" fill="none" stroke="#2E6BFF" stroke-width="2" marker-end="url(#arrowBlue)"/>
+  <text x="300" y="336" text-anchor="middle" font-size="12.5" fill="#2E6BFF">无前缀 → 301/308 跳转</text>
+
+  <!-- 分支：rewrite（右） -->
+  <path d="M852,250 L852,345 L700,345 L700,378" fill="none" stroke="#2E6BFF" stroke-width="2" marker-end="url(#arrowBlue)"/>
+  <text x="704" y="336" text-anchor="middle" font-size="12.5" fill="#2E6BFF">内容替换</text>
+
+  <!-- ④ redirect 结果 -->
+  <rect x="110" y="380" width="400" height="120" rx="12" fill="#F0FDF4" stroke="#12B76A" stroke-width="1.5"/>
+  <text x="310" y="412" text-anchor="middle" font-size="16" font-weight="700" fill="#067647">④ NextResponse.redirect()</text>
+  <text x="310" y="436" text-anchor="middle" font-size="13" fill="#344054">URL = /en/products，地址栏改变</text>
+  <text x="310" y="458" text-anchor="middle" font-size="13" fill="#344054">常用：根路径 / 无前缀 → 规范语言 URL</text>
+  <text x="310" y="482" text-anchor="middle" font-size="12.5" fill="#667085">利于 SEO / 分享链接携带语言标识</text>
+
+  <!-- ⑤ rewrite 结果 -->
+  <rect x="520" y="380" width="400" height="120" rx="12" fill="#F0FDF4" stroke="#12B76A" stroke-width="1.5"/>
+  <text x="720" y="412" text-anchor="middle" font-size="16" font-weight="700" fill="#067647">⑤ NextResponse.rewrite()</text>
+  <text x="720" y="436" text-anchor="middle" font-size="13" fill="#344054">地址栏保持 /products</text>
+  <text x="720" y="458" text-anchor="middle" font-size="13" fill="#344054">实际渲染成 /en/products 内容</text>
+  <text x="720" y="482" text-anchor="middle" font-size="12.5" fill="#667085">常用：A/B 测试、维护页、无前缀模式</text>
+
+  <!-- 箭头 ④ ⑤ → ⑥ -->
+  <line x1="310" y1="500" x2="310" y2="560" stroke="#12B76A" stroke-width="2" marker-end="url(#arrowGreen)"/>
+  <line x1="720" y1="500" x2="720" y2="560" stroke="#12B76A" stroke-width="2" marker-end="url(#arrowGreen)"/>
+
+  <!-- ⑥ 渲染 -->
+  <rect x="220" y="562" width="560" height="58" rx="12" fill="#F2F4F7" stroke="#98A2B3" stroke-width="1.5"/>
+  <text x="500" y="588" text-anchor="middle" font-size="15" font-weight="700" fill="#1A1A1A">⑥ 命中 app/[lang]/... 路由</text>
+  <text x="500" y="610" text-anchor="middle" font-size="12.5" fill="#475467">lang 参数转发到每个 layout / page，渲染对应语言字典内容</text>
+
+  <!-- 底部说明 -->
+  <text x="500" y="658" text-anchor="middle" font-size="12" fill="#98A2B3">注：Next 16 中该文件为 proxy.ts（旧版 middleware.ts），默认 Node.js runtime；matcher 需排除 _next / 静态文件 / 含点路径。</text>
+</svg>
