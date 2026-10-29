@@ -154,3 +154,8 @@ useMutation({
 **相关官方链接**
 - Mutations：<https://tanstack.com/query/v5/docs/framework/react/guides/mutations>
 - Optimistic Updates：<https://tanstack.com/query/v5/docs/framework/react/guides/optimistic-updates>
+
+
+---
+
+> **上一篇**：[7、请求取消与去重](./7%E3%80%81%E8%AF%B7%E6%B1%82%E5%8F%96%E6%B6%88%E4%B8%8E%E5%8E%BB%E9%87%8D.md)　｜　**下一篇**：[9、QueryClient 与缓存生命周期](./9%E3%80%81QueryClient%20%E4%B8%8E%E7%BC%93%E5%AD%98%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.md)

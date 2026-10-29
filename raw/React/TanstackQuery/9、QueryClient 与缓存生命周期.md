@@ -101,3 +101,8 @@ useQuery({
 - Caching 指南：<https://tanstack.com/query/v5/docs/framework/react/guides/caching>
 - QueryClient API：<https://tanstack.com/query/v5/docs/framework/react/reference/QueryClient>
 - Important Defaults：<https://tanstack.com/query/v5/docs/framework/react/guides/important-defaults>
+
+
+---
+
+> **上一篇**：[8、Mutations 与乐观更新](./8%E3%80%81Mutations%20%E4%B8%8E%E4%B9%90%E8%A7%82%E6%9B%B4%E6%96%B0.md)　｜　**下一篇**：[10、缓存失效与手动更新](./10%E3%80%81%E7%BC%93%E5%AD%98%E5%A4%B1%E6%95%88%E4%B8%8E%E6%89%8B%E5%8A%A8%E6%9B%B4%E6%96%B0.md)

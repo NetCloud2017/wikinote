@@ -97,3 +97,8 @@ useQuery({
 **相关官方链接**
 - Query Keys：<https://tanstack.com/query/v5/docs/framework/react/guides/query-keys>
 - Query Functions：<https://tanstack.com/query/v5/docs/framework/react/guides/query-functions>
+
+
+---
+
+> **上一篇**：[1、定位与基础搭建](./1%E3%80%81%E5%AE%9A%E4%BD%8D%E4%B8%8E%E5%9F%BA%E7%A1%80%E6%90%AD%E5%BB%BA.md)　｜　**下一篇**：[3、查询状态机与 useQuery](./3%E3%80%81%E6%9F%A5%E8%AF%A2%E7%8A%B6%E6%80%81%E6%9C%BA%E4%B8%8E%20useQuery.md)

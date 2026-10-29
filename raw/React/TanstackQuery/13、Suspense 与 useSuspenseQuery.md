@@ -110,3 +110,8 @@ export default function Page() {
 **相关官方链接**
 - Suspense 指南：<https://tanstack.com/query/v5/docs/framework/react/guides/suspense>
 - useSuspenseQuery API：<https://tanstack.com/query/v5/docs/framework/react/reference/useSuspenseQuery>
+
+
+---
+
+> **上一篇**：[12、queryOptions 与查询工厂](./12%E3%80%81queryOptions%20%E4%B8%8E%E6%9F%A5%E8%AF%A2%E5%B7%A5%E5%8E%82.md)　｜　**下一篇**：[14、SSR、SSG 与 Next.js 集成](./14%E3%80%81SSR%E3%80%81SSG%20%E4%B8%8E%20Next.js%20%E9%9B%86%E6%88%90.md)

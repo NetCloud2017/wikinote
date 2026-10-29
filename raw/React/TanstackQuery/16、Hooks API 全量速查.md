@@ -155,3 +155,8 @@ usePrefetchInfiniteQuery({ queryKey: ['projects'], queryFn: fetchProjects, initi
 - useMutation：<https://tanstack.com/query/v5/docs/framework/react/reference/useMutation>
 - useQueryClient：<https://tanstack.com/query/v5/docs/framework/react/reference/useQueryClient>
 - useIsFetching / useIsMutating：<https://tanstack.com/query/v5/docs/framework/react/reference/useIsFetching>
+
+
+---
+
+> **上一篇**：[15、DevTools、持久化与测试](./15%E3%80%81DevTools%E3%80%81%E6%8C%81%E4%B9%85%E5%8C%96%E4%B8%8E%E6%B5%8B%E8%AF%95.md)　｜　**下一篇**：[17、v4→v5 迁移与选型对比](./17%E3%80%81v4%E2%86%92v5%20%E8%BF%81%E7%A7%BB%E4%B8%8E%E9%80%89%E5%9E%8B%E5%AF%B9%E6%AF%94.md)

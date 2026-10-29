@@ -119,3 +119,8 @@ const projects = useQuery({ queryKey: ['projects'], queryFn: fetchProjects })
 **相关官方链接**
 - Queries 指南：<https://tanstack.com/query/v5/docs/framework/react/guides/queries>
 - useQuery API：<https://tanstack.com/query/v5/docs/framework/react/reference/useQuery>
+
+
+---
+
+> **上一篇**：[2、Query Keys 与 Query Functions](./2%E3%80%81Query%20Keys%20%E4%B8%8E%20Query%20Functions.md)　｜　**下一篇**：[4、并行与依赖查询](./4%E3%80%81%E5%B9%B6%E8%A1%8C%E4%B8%8E%E4%BE%9D%E8%B5%96%E6%9F%A5%E8%AF%A2.md)

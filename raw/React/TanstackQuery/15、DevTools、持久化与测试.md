@@ -137,3 +137,8 @@ it('渲染数据', async () => {
 - DevTools：<https://tanstack.com/query/v5/docs/framework/react/devtools>
 - persistQueryClient：<https://tanstack.com/query/v5/docs/framework/react/plugins/persistQueryClient>
 - Testing：<https://tanstack.com/query/v5/docs/framework/react/guides/testing>
+
+
+---
+
+> **上一篇**：[14、SSR、SSG 与 Next.js 集成](./14%E3%80%81SSR%E3%80%81SSG%20%E4%B8%8E%20Next.js%20%E9%9B%86%E6%88%90.md)　｜　**下一篇**：[16、Hooks API 全量速查](./16%E3%80%81Hooks%20API%20%E5%85%A8%E9%87%8F%E9%80%9F%E6%9F%A5.md)

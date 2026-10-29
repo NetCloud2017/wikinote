@@ -135,3 +135,8 @@ export default async function Home() {
 **相关官方链接**
 - SSR 指南：<https://tanstack.com/query/v5/docs/framework/react/guides/ssr>
 - Advanced SSR（Next.js App Router）：<https://tanstack.com/query/v5/docs/framework/react/guides/advanced-ssr>
+
+
+---
+
+> **上一篇**：[13、Suspense 与 useSuspenseQuery](./13%E3%80%81Suspense%20%E4%B8%8E%20useSuspenseQuery.md)　｜　**下一篇**：[15、DevTools、持久化与测试](./15%E3%80%81DevTools%E3%80%81%E6%8C%81%E4%B9%85%E5%8C%96%E4%B8%8E%E6%B5%8B%E8%AF%95.md)

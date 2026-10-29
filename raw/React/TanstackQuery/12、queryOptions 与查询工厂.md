@@ -109,3 +109,8 @@ export const todoListOptions = (filter: Filter) =>
 **相关官方链接**
 - Query Options：<https://tanstack.com/query/v5/docs/framework/react/guides/query-options>
 - Query Keys：<https://tanstack.com/query/v5/docs/framework/react/guides/query-keys>
+
+
+---
+
+> **上一篇**：[11、重要默认值与工程化选项](./11%E3%80%81%E9%87%8D%E8%A6%81%E9%BB%98%E8%AE%A4%E5%80%BC%E4%B8%8E%E5%B7%A5%E7%A8%8B%E5%8C%96%E9%80%89%E9%A1%B9.md)　｜　**下一篇**：[13、Suspense 与 useSuspenseQuery](./13%E3%80%81Suspense%20%E4%B8%8E%20useSuspenseQuery.md)
