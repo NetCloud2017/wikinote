@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="860" viewBox="0 0 960 860" font-family="'Microsoft YaHei','PingFang SC',sans-serif">
+  <title>React Fiber 一次更新的函数调用链</title>
+  <defs>
+    <marker id="fa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#444"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="860" fill="#ffffff"/>
+  <text x="480" y="34" text-anchor="middle" font-size="22" font-weight="bold" fill="#1a1a1a">一次更新的函数调用链（从 setState 到 DOM 更新）</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#666">灰底阶段 = 调度 / 可中断；橙底 = Commit 不可中断</text>
+
+  <!-- 阶段 1：触发与调度 -->
+  <g>
+    <rect x="60" y="80" width="840" height="150" rx="12" fill="#f4f4f2" stroke="#999" stroke-width="1.3"/>
+    <text x="480" y="104" text-anchor="middle" font-size="14" font-weight="bold" fill="#333">① 触发与调度</text>
+
+    <rect x="90" y="122" width="150" height="44" rx="8" fill="#fff" stroke="#777" stroke-width="1.3"/>
+    <text x="165" y="140" text-anchor="middle" font-size="12.5" fill="#1a1a1a">setState / useState</text>
+    <text x="165" y="158" text-anchor="middle" font-size="11" fill="#777">dispatch</text>
+
+    <line x1="240" y1="144" x2="285" y2="144" stroke="#444" stroke-width="1.8" marker-end="url(#fa)"/>
+
+    <rect x="290" y="122" width="180" height="44" rx="8" fill="#fff" stroke="#777" stroke-width="1.3"/>
+    <text x="380" y="140" text-anchor="middle" font-size="12.5" fill="#1a1a1a">scheduleUpdateOnFiber</text>
+    <text x="380" y="158" text-anchor="middle" font-size="11" fill="#777">标记 root 需要更新</text>
+
+    <line x1="470" y1="144" x2="515" y2="144" stroke="#444" stroke-width="1.8" marker-end="url(#fa)"/>
+
+    <rect x="520" y="122" width="180" height="44" rx="8" fill="#fff" stroke="#777" stroke-width="1.3"/>
+    <text x="610" y="140" text-anchor="middle" font-size="12.5" fill="#1a1a1a">ensureRootIsScheduled</text>
+    <text x="610" y="158" text-anchor="middle" font-size="11" fill="#777">把 root 挂到调度器</text>
+
+    <line x1="700" y1="144" x2="745" y2="144" stroke="#444" stroke-width="1.8" marker-end="url(#fa)"/>
+
+    <rect x="750" y="122" width="130" height="44" rx="8" fill="#fff" stroke="#777" stroke-width="1.3"/>
+    <text x="815" y="140" text-anchor="middle" font-size="12" fill="#1a1a1a">Scheduler</text>
+    <text x="815" y="158" text-anchor="middle" font-size="11" fill="#777">scheduleCallback</text>
+  </g>
+
+  <line x1="480" y1="230" x2="480" y2="258" stroke="#444" stroke-width="2" marker-end="url(#fa)"/>
+
+  <!-- 阶段 2：render work loop -->
+  <g>
+    <rect x="60" y="260" width="840" height="120" rx="12" fill="#eef6ff" stroke="#2f6f9f" stroke-width="2"/>
+    <text x="480" y="284" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a3a55">② Render 阶段：workLoopConcurrent（可中断）</text>
+    <text x="480" y="304" text-anchor="middle" font-size="12" fill="#444">while (workInProgress !== null &amp;&amp; !shouldYield()) performUnitOfWork(workInProgress)</text>
+    <text x="480" y="326" text-anchor="middle" font-size="11.5" fill="#2f6f9f">shouldYield() 到点就让出主线程 → 下一片从断点继续（可中断边界）</text>
+
+    <rect x="200" y="344" width="560" height="26" rx="6" fill="#dbe9fb" stroke="#2f6f9f" stroke-width="1"/>
+    <text x="480" y="362" text-anchor="middle" font-size="12" fill="#1a1a1a">workInProgress：全局指针，指向当前正在处理的工作单元</text>
+  </g>
+
+  <line x1="480" y1="380" x2="480" y2="404" stroke="#444" stroke-width="2" marker-end="url(#fa)"/>
+
+  <!-- 阶段 3：performUnitOfWork -->
+  <g>
+    <rect x="60" y="406" width="840" height="180" rx="12" fill="#eef6ff" stroke="#2f6f9f" stroke-width="2"/>
+    <text x="480" y="430" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a3a55">③ 处理一个工作单元：performUnitOfWork</text>
+
+    <rect x="110" y="452" width="180" height="52" rx="8" fill="#fff" stroke="#2f6f9f" stroke-width="1.4"/>
+    <text x="200" y="472" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">beginWork</text>
+    <text x="200" y="492" text-anchor="middle" font-size="11" fill="#444">按 fiber tag 处理；调用 reconcileChildren 生成子 fiber、打 flags</text>
+
+    <rect x="390" y="452" width="190" height="52" rx="8" fill="#fff" stroke="#2f6f9f" stroke-width="1.4"/>
+    <text x="485" y="472" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">reconcileChildren</text>
+    <text x="485" y="492" text-anchor="middle" font-size="11" fill="#444">diff 新旧子节点，复用或新建子 fiber</text>
+
+    <rect x="680" y="452" width="190" height="52" rx="8" fill="#fff" stroke="#2f6f9f" stroke-width="1.4"/>
+    <text x="775" y="472" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">completeWork</text>
+    <text x="775" y="492" text-anchor="middle" font-size="11" fill="#444">建 DOM 实例 / 更新属性，收集 effects</text>
+
+    <rect x="110" y="522" width="760" height="50" rx="8" fill="#fdf3f3" stroke="#c0392b" stroke-width="1.3"/>
+    <text x="490" y="542" text-anchor="middle" font-size="12.5" fill="#7a1f16">有子 → workInProgress = child（下钻）；无子 → completeUnitOfWork：completeWork 后转向 sibling，</text>
+    <text x="490" y="562" text-anchor="middle" font-size="12.5" fill="#7a1f16">没有兄弟则回溯 return（父），重复直到回到 root</text>
+  </g>
+
+  <line x1="480" y1="586" x2="480" y2="610" stroke="#444" stroke-width="2" marker-end="url(#fa)"/>
+
+  <!-- 阶段 4：commit -->
+  <g>
+    <rect x="60" y="612" width="840" height="170" rx="12" fill="#fdf6f0" stroke="#c2620e" stroke-width="2"/>
+    <text x="480" y="636" text-anchor="middle" font-size="14" font-weight="bold" fill="#5a3a10">④ Commit 阶段：commitRoot（不可中断）</text>
+    <text x="480" y="656" text-anchor="middle" font-size="11.5" fill="#c2620e">树构建完（workInProgress 回到 null）后同步提交，已动真实 DOM，不能再停</text>
+
+    <rect x="90" y="678" width="140" height="48" rx="8" fill="#fbe8d8" stroke="#c2620e" stroke-width="1.4"/>
+    <text x="160" y="697" text-anchor="middle" font-size="12" fill="#5a3a10">beforeMutation</text>
+    <text x="160" y="715" text-anchor="middle" font-size="10.5" fill="#777">getSnapshotBeforeUpdate</text>
+
+    <line x1="230" y1="702" x2="285" y2="702" stroke="#c2620e" stroke-width="1.8" marker-end="url(#fa)"/>
+
+    <rect x="290" y="678" width="150" height="48" rx="8" fill="#fbe8d8" stroke="#c2620e" stroke-width="1.4"/>
+    <text x="365" y="697" text-anchor="middle" font-size="12" fill="#5a3a10">mutation</text>
+    <text x="365" y="715" text-anchor="middle" font-size="10.5" fill="#777">commitPlacement/Work/Deletion 改 DOM</text>
+
+    <line x1="440" y1="702" x2="495" y2="702" stroke="#c2620e" stroke-width="1.8" marker-end="url(#fa)"/>
+
+    <rect x="500" y="678" width="150" height="48" rx="8" fill="#fbe8d8" stroke="#c2620e" stroke-width="1.4"/>
+    <text x="575" y="697" text-anchor="middle" font-size="12" fill="#5a3a10">layout</text>
+    <text x="575" y="715" text-anchor="middle" font-size="10.5" fill="#777">useLayoutEffect + 切换 current</text>
+
+    <rect x="90" y="742" width="560" height="34" rx="8" fill="#fff" stroke="#c2620e" stroke-width="1.2"/>
+    <text x="370" y="764" text-anchor="middle" font-size="12" fill="#5a3a10">createWorkInProgress：优先复用 current.alternate，双缓冲复用的核心</text>
+  </g>
+
+  <text x="480" y="840" text-anchor="middle" font-size="12" fill="#999">示意图：函数名按 React 18+ reconciler，省略了部分内部细节</text>
+</svg>

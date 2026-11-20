@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="720" viewBox="0 0 880 720" font-family="'Microsoft YaHei','PingFang SC',sans-serif">
+  <title>React Fiber 链表树结构与节点字段</title>
+  <defs>
+    <marker id="arrChild" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#2f6f9f"/>
+    </marker>
+    <marker id="arrSib" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#c2620e"/>
+    </marker>
+    <marker id="arrRet" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#7a7a7a"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="880" height="720" fill="#ffffff"/>
+  <text x="440" y="34" text-anchor="middle" font-size="22" font-weight="bold" fill="#1a1a1a">Fiber 树：链表结构 + 节点字段</text>
+  <text x="440" y="58" text-anchor="middle" font-size="13" fill="#666">用单向链表替代递归调用栈，让协调可拆分为工作单元、可中断可恢复</text>
+
+  <!-- 组件树标签 -->
+  <text x="120" y="92" font-size="13" fill="#888">组件树逻辑层级</text>
+  <text x="640" y="92" font-size="13" fill="#888">单个 fiber 节点关键字段</text>
+
+  <!-- ===== 左侧：fiber 树 ===== -->
+  <!-- 节点 -->
+  <g>
+    <!-- App (HostRoot) -->
+    <rect x="80" y="120" width="90" height="34" rx="8" fill="#eaf3fb" stroke="#2f6f9f" stroke-width="1.5"/>
+    <text x="125" y="142" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">App</text>
+
+    <!-- Header / Nav / Footer -->
+    <rect x="20" y="250" width="80" height="34" rx="8" fill="#eaf3fb" stroke="#2f6f9f" stroke-width="1.5"/>
+    <text x="60" y="272" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Header</text>
+
+    <rect x="170" y="250" width="80" height="34" rx="8" fill="#eaf3fb" stroke="#2f6f9f" stroke-width="1.5"/>
+    <text x="210" y="272" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Nav</text>
+
+    <rect x="320" y="250" width="90" height="34" rx="8" fill="#eaf3fb" stroke="#2f6f9f" stroke-width="1.5"/>
+    <text x="365" y="272" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Footer</text>
+
+    <!-- 叶子 -->
+    <rect x="20" y="390" width="80" height="34" rx="8" fill="#f0faf0" stroke="#2e7d4f" stroke-width="1.5"/>
+    <text x="60" y="412" text-anchor="middle" font-size="13" fill="#1a1a1a">div</text>
+
+    <rect x="170" y="390" width="80" height="34" rx="8" fill="#f0faf0" stroke="#2e7d4f" stroke-width="1.5"/>
+    <text x="210" y="412" text-anchor="middle" font-size="13" fill="#1a1a1a">ul</text>
+
+    <rect x="320" y="390" width="80" height="34" rx="8" fill="#f0faf0" stroke="#2e7d4f" stroke-width="1.5"/>
+    <text x="360" y="412" text-anchor="middle" font-size="13" fill="#1a1a1a">p</text>
+  </g>
+
+  <!-- child 连线 (实线蓝) -->
+  <line x1="125" y1="154" x2="60" y2="250" stroke="#2f6f9f" stroke-width="2" marker-end="url(#arrChild)"/>
+  <line x1="60" y1="284" x2="60" y2="390" stroke="#2f6f9f" stroke-width="2" marker-end="url(#arrChild)"/>
+  <line x1="210" y1="284" x2="210" y2="390" stroke="#2f6f9f" stroke-width="2" marker-end="url(#arrChild)"/>
+  <line x1="365" y1="284" x2="360" y2="390" stroke="#2f6f9f" stroke-width="2" marker-end="url(#arrChild)"/>
+
+  <!-- sibling 连线 (虚线橙) -->
+  <line x1="100" y1="267" x2="170" y2="267" stroke="#c2620e" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arrSib)"/>
+  <line x1="250" y1="267" x2="320" y2="267" stroke="#c2620e" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arrSib)"/>
+
+  <!-- return 连线 (细灰) -->
+  <line x1="60" y1="140" x2="110" y2="140" stroke="#7a7a7a" stroke-width="1.4" stroke-dasharray="3 3" marker-end="url(#arrRet)"/>
+  <line x1="210" y1="140" x2="170" y2="140" stroke="#7a7a7a" stroke-width="1.4" stroke-dasharray="3 3" marker-end="url(#arrRet)"/>
+  <line x1="60" y1="220" x2="60" y2="180" stroke="#7a7a7a" stroke-width="1.4" stroke-dasharray="3 3" marker-end="url(#arrRet)"/>
+  <line x1="210" y1="220" x2="210" y2="180" stroke="#7a7a7a" stroke-width="1.4" stroke-dasharray="3 3" marker-end="url(#arrRet)"/>
+  <line x1="360" y1="220" x2="360" y2="180" stroke="#7a7a7a" stroke-width="1.4" stroke-dasharray="3 3" marker-end="url(#arrRet)"/>
+
+  <!-- child 标签 -->
+  <text x="78" y="212" font-size="11" fill="#2f6f9f">child</text>
+  <text x="228" y="212" font-size="11" fill="#2f6f9f">child</text>
+  <text x="378" y="212" font-size="11" fill="#2f6f9f">child</text>
+  <text x="120" y="330" font-size="11" fill="#2f6f9f">child</text>
+  <!-- sibling 标签 -->
+  <text x="122" y="258" font-size="11" fill="#c2620e">sibling</text>
+  <text x="272" y="258" font-size="11" fill="#c2620e">sibling</text>
+  <!-- return 标签 -->
+  <text x="116" y="134" font-size="11" fill="#7a7a7a">return</text>
+
+  <!-- 图例 -->
+  <g font-size="12" fill="#333">
+    <line x1="30" y1="470" x2="70" y2="470" stroke="#2f6f9f" stroke-width="2" marker-end="url(#arrChild)"/>
+    <text x="78" y="474">child：父指向第一个子节点</text>
+    <line x1="250" y1="470" x2="290" y2="470" stroke="#c2620e" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arrSib)"/>
+    <text x="298" y="474">sibling：指向下一个兄弟</text>
+    <line x1="470" y1="470" x2="510" y2="470" stroke="#7a7a7a" stroke-width="1.4" stroke-dasharray="3 3" marker-end="url(#arrRet)"/>
+    <text x="518" y="474">return：指回父节点（用于回溯）</text>
+  </g>
+
+  <!-- ===== 右侧：fiber 节点字段 ===== -->
+  <g font-size="12" fill="#333">
+    <rect x="470" y="110" width="390" height="330" rx="10" fill="#fafaf7" stroke="#d8d8d0" stroke-width="1.2"/>
+    <text x="665" y="140" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Fiber 节点 = 一个工作单元</text>
+  </g>
+  <!-- 字段行 -->
+  <g font-size="12.5">
+    <text x="488" y="170" fill="#2f6f9f" font-weight="bold">type</text>
+    <text x="560" y="170" fill="#444">组件函数 / 类 / 原生标签名（'div'）</text>
+
+    <text x="488" y="200" fill="#2f6f9f" font-weight="bold">key</text>
+    <text x="560" y="200" fill="#444">diff 时用来区分同层节点的标识</text>
+
+    <text x="488" y="230" fill="#2f6f9f" font-weight="bold">stateNode</text>
+    <text x="560" y="230" fill="#444">关联的真实 DOM / 组件实例</text>
+
+    <text x="488" y="260" fill="#2f6f9f" font-weight="bold">memoizedProps</text>
+    <text x="560" y="260" fill="#444">上次渲染使用的 props</text>
+
+    <text x="488" y="290" fill="#2f6f9f" font-weight="bold">memoizedState</text>
+    <text x="560" y="290" fill="#444">上次的 state（也是 hook 链表头）</text>
+
+    <text x="488" y="320" fill="#2f6f9f" font-weight="bold">alternate</text>
+    <text x="560" y="320" fill="#444">双缓冲中另一棵树的对应 fiber</text>
+
+    <text x="488" y="350" fill="#2f6f9f" font-weight="bold">flags</text>
+    <text x="560" y="350" fill="#444">待执行的副作用/更新标记</text>
+
+    <text x="488" y="380" fill="#2f6f9f" font-weight="bold">lanes</text>
+    <text x="560" y="380" fill="#444">本更新所属的优先级车道</text>
+
+    <text x="488" y="410" fill="#2f6f9f" font-weight="bold">child / sibling / return</text>
+    <text x="560" y="410" fill="#444">树形连接的三根指针</text>
+  </g>
+
+  <!-- 底部说明 -->
+  <text x="440" y="560" text-anchor="middle" font-size="13" fill="#555">为什么用链表：迭代遍历可被切成小片，随时停下让出主线程，再从断点继续，</text>
+  <text x="440" y="582" text-anchor="middle" font-size="13" fill="#555">而不是像旧版那样同步递归跑完整棵树。</text>
+  <text x="440" y="640" text-anchor="middle" font-size="12" fill="#999">示意图：为便于阅读省略部分连接线</text>
+</svg>
